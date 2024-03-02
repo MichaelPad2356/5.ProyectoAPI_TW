@@ -1,0 +1,56 @@
+body {
+    background: url('../media/back.gif') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+    font-family: "Anta", sans-serif;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Color de texto para mejorar la visibilidad sobre la imagen de fondo */
+}
+
+#overlay {
+    padding: 20px;
+    border-radius: 15px;
+}
+
+#title {
+    color: #ffffff; /* Rojo */
+    font-size: 75px;
+    margin-top: 10px;
+}
+
+#subtitle {
+    color: #faf5f5; /* Tono de rojo más claro */
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+#logo{
+    max-width: 75px;
+}
+
+#startButton {
+    background-color: #ff0000; /* Negro */
+    color: #ffffff; /* Rojo claro */
+    padding: 20px 40px;
+    font-size: 24px;
+    text-decoration: none;
+    border-radius: 12px;
+    animation: brillo 2s infinite;
+}
+
+@keyframes brillo {
+    0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.9); }
+    100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8); }
+}
+
+#startButton:hover {
+    background-color: #ff0000; /* Negro más oscuro al pasar el ratón */
+}
+
+audio {
+    width: 100%;
+    margin-top: 20px;
+}
