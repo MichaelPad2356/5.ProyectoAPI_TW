@@ -8,19 +8,19 @@ function iniciar(){
     } 
 
     //permiso para soltar en el lienzo
-   var soltar = document.getElementById('lienzo1');
-   var lienzo1 = soltar.getContext('2d');
-   soltar.addEventListener('dragenter',eventoEnter, false);
-   soltar.addEventListener('dragover',eventoSobre, false);
-   soltar.addEventListener('drop',eventoDrop, false); 
+   var soltar1 = document.getElementById('lienzo1');
+   var lienzo1 = soltar1.getContext('2d');
+   soltar1.addEventListener('dragenter',eventoEnter, false);
+   soltar1.addEventListener('dragover',eventoSobre, false);
+   soltar1.addEventListener('drop',eventoDrop, false); 
  
   // Cargar la imagen de fondo
-    var img = new Image();
-    img.onload = function() {
+    var img1 = new Image();
+    img1.onload = function() {
         // Ajustar la imagen al tamaño del lienzo
-        lienzo1.drawImage(img, 0, 0, soltar.width, soltar.height);
+        lienzo1.drawImage(img1, 0, 0, soltar1.width, soltar1.height);
     };
-    img.src = "../media/casas/MarioB1.png";
+    img1.src = "../media/casas/Pokemon8.png";
 
    // Permisos para el segundo lienzo (repetir para los demás lienzos si es necesario)
    var soltar2 = document.getElementById('lienzo2');
@@ -30,12 +30,12 @@ function iniciar(){
    soltar2.addEventListener('drop', eventoDrop, false);
 
     // Cargar la imagen de fondo
-    var img = new Image();
-    img.onload = function() {
+    var img2 = new Image();
+    img2.onload = function() {
         // Ajustar la imagen al tamaño del lienzo
-        lienzo2.drawImage(img, 0, 0, soltar.width, soltar.height);
+        lienzo2.drawImage(img2, 0, 0, soltar2.width, soltar2.height);
     };
-    img.src = "../media/casas/Pokemon8.png";
+    img2.src = "../media/casas/Donkey4.png";
 
    // Permisos para el tercer lienzo (repetir para los demás lienzos si es necesario)
    var soltar3 = document.getElementById('lienzo3');
@@ -45,12 +45,12 @@ function iniciar(){
    soltar3.addEventListener('drop', eventoDrop, false);
 
     // Cargar la imagen de fondo
-    var img = new Image();
-    img.onload = function() {
+    var img3 = new Image();
+    img3.onload = function() {
         // Ajustar la imagen al tamaño del lienzo
-        lienzo3.drawImage(img, 0, 0, soltar.width, soltar.height);
+        lienzo3.drawImage(img3, 0, 0, soltar3.width, soltar3.height);
     };
-    img.src = "../media/casas/Zelda5.png";
+    img3.src = "../media/casas/Cuphead9.png";
 }
 
 //funciones para el drag and drop
