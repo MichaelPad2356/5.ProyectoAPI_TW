@@ -8,8 +8,8 @@
 
 canvas {
     border: 1px solid black;
-    width: 400px; /* Ancho deseado para todos los lienzos */
-    height: 400px; /* Alto deseado para todos los lienzos */
+    width: 450px; /* Ancho deseado para todos los lienzos */
+    height: 450px; /* Alto deseado para todos los lienzos */
     margin-right: 10px; /* Espacio entre los lienzos */
     display: block;
 }
