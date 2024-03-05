@@ -1,1 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego y Pantalla de Felicitación</title>
+    <link rel="stylesheet" href="../css/ScoreEstilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="congratulationsScreen" style="display:none;">        
+        <h1>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</h1>
+        <div id="finalScores">
+            <h1>FINAL SCORES</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ALIAS</th>
+                        <th>SCORE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jugador 1</td>
+                        <td>12345</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="restartGame">Jugar de Nuevo</button>
+    </div>
+    <script src="../js/Score.js"></script>
+</body>
+</html>
 
