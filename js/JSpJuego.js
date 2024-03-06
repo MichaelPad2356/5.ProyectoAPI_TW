@@ -73,15 +73,23 @@ function eventoDrop(e) {
     var lienzo = e.target;
     var contexto = lienzo.getContext('2d');
 
-    // Calcular el tamaño adecuado para la imagen
-    var anchoImagen = Math.min(elemento.width, lienzo.width * 0.6); // Limitar el ancho al 80% del ancho del lienzo
-    var altoImagen = Math.min(elemento.height, lienzo.height * 0.6); // Limitar el alto al 80% del alto del lienzo
+    // Mostrar la imagen antes de dibujarla en el lienzo
+    elemento.style.visibility = 'visible';
 
-    // Calcular las coordenadas para que el centro de la imagen coincida con el centro del lienzo
-    var posX = (lienzo.width - anchoImagen) / 2;
-    var posY = (lienzo.height - altoImagen) / 2;
+    // Verificar si la suelta ocurrió dentro de alguno de los tres lienzos
+    if (lienzo.id === 'lienzo1' || lienzo.id === 'lienzo2' || lienzo.id === 'lienzo3') {
+        // Calcular el tamaño adecuado para la imagen
+        var anchoImagen = Math.min(elemento.width, lienzo.width * 0.6);
+        var altoImagen = Math.min(elemento.height, lienzo.height * 0.6);
 
-    contexto.drawImage(elemento, posX, posY, anchoImagen, altoImagen);
+        var posX = (lienzo.width - anchoImagen) / 2;
+        var posY = (lienzo.height - altoImagen) / 2;
+
+        contexto.drawImage(elemento, posX, posY, anchoImagen, altoImagen);
+
+        // Ocultar la imagen solo si se soltó dentro de uno de los lienzos
+        elemento.style.visibility = 'hidden';
+    }
 }
 
 
@@ -90,8 +98,8 @@ function eventoDrop(e) {
 //funciones de las imagenes
 //funcion para ser visible la imagen en el lienzo
 function finalizado(e){
-    elemento = e.target;
-    elemento.style.visibility = 'hidden';
+    // elemento = e.target;
+    // elemento.style.visibility = 'hidden';
 }
 
 function arrastrar(e){
