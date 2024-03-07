@@ -1,0 +1,15 @@
+
+#escenarios {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+canvas {
+    border: 1px solid black;
+    width: 450px; /* Ancho deseado para todos los lienzos */
+    height: 450px; /* Alto deseado para todos los lienzos */
+    margin-right: 10px; /* Espacio entre los lienzos */
+    display: block;
+}
