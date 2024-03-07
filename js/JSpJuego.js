@@ -11,6 +11,31 @@
     '../media/Casas/Zelda5.png': '../media/Personajes/Zelda.png'
 };
 
+const valoresCasas = {
+    '../media/Casas/Cuphead9.png': 10,
+    '../media/Casas/Donkey4.png': 20,
+    '../media/Casas/KirbyDL2.png': 30,
+    '../media/Casas/MarioB1.png': 40,
+    '../media/Casas/Minecraft6.png': 50,
+    '../media/Casas/Packman7.png': 60,
+    '../media/Casas/Pokemon8.png': 70,
+    '../media/Casas/Sonic3.png': 80,
+    '../media/Casas/Zelda5.png': 90
+};
+
+const valoresPersonajes = {
+    '../media/Personajes/Cuphead.png': 10,
+    '../media/Personajes/DonkeyKong.png': 20,
+    '../media/Personajes/Kirby.png': 30,
+    '../media/Personajes/MarioBros.png': 40,
+    '../media/Personajes/Minecraft.png': 50,
+    '../media/Personajes/Pacman.png': 60,
+    '../media/Personajes/Pokemon.png': 70,
+    '../media/Personajes/Sonic.png': 80,
+    '../media/Personajes/Zelda.png': 90
+};
+
+
 // Array para almacenar las imágenes seleccionadas
 let imagenesSeleccionadas = [];
 
@@ -55,6 +80,11 @@ function iniciar() {
         imgCasa.onload = function (contexto, imgCasa) {
             return function() {
                 contexto.drawImage(imgCasa, 0, 0, lienzo.width, lienzo.height);
+
+                // Agregar evento de drop único para cada lienzo
+                lienzo.addEventListener('drop', function(e) {
+                    eventoDrop(e, this); // Llamar a eventoDrop con el lienzo actual
+                }, false);
             };
         }(contexto, imgCasa);
     }
@@ -76,6 +106,7 @@ function iniciar() {
         document.getElementById('cajasimagenes').appendChild(imgPersonaje);
     }
 }
+
 
 // Resto de las funciones (arrastrar, eventoEnter, eventoSobre, eventoDrop, seleccionarImagenesAleatorias, etc.)
 
@@ -115,24 +146,45 @@ function eventoDrop(e) {
     var lienzo = e.target;
     var contexto = lienzo.getContext('2d');
 
-    // Mostrar la imagen antes de dibujarla en el lienzo
-    elemento.style.visibility = 'visible';
-
     // Verificar si la suelta ocurrió dentro de alguno de los tres lienzos
     if (lienzo.classList.contains('lienzo')) {
-        // Calcular el tamaño adecuado para la imagen
-        var anchoImagen = Math.min(elemento.width, lienzo.width * 0.6);
-        var altoImagen = Math.min(elemento.height, lienzo.height * 0.6);
+        // Verificar si ya hay una imagen presente en el lienzo
+        var imagenesEnLienzo = lienzo.getElementsByTagName('img');
+        if (imagenesEnLienzo.length === 0) {
+            // Calcular el tamaño adecuado para la imagen
+            var anchoImagen = Math.min(elemento.width, lienzo.width * 0.6);
+            var altoImagen = Math.min(elemento.height, lienzo.height * 0.6);
 
-        var posX = (lienzo.width - anchoImagen) / 2;
-        var posY = (lienzo.height - altoImagen) / 2;
+            var posX = (lienzo.width - anchoImagen) / 2;
+            var posY = (lienzo.height - altoImagen) / 2;
 
-        contexto.drawImage(elemento, posX, posY, anchoImagen, altoImagen);
+            // Dibujar la imagen en el lienzo
+            contexto.drawImage(elemento, posX, posY, anchoImagen, altoImagen);
 
-        // Ocultar la imagen solo si se soltó dentro de uno de los lienzos
-        elemento.style.visibility = 'hidden';
+            // Ocultar la imagen solo si se soltó dentro de uno de los lienzos
+            elemento.style.visibility = 'hidden';
+
+            // Deshabilitar el evento de soltar para este lienzo
+            lienzo.removeEventListener('drop', eventoDrop);
+        }
     }
+    //verificar las casas y personajes
+     // Obtener la ruta de la imagen de fondo del lienzo
+     var imagenFondo = lienzo.toDataURL();
+
+     // Obtener el valor asociado a la imagen de fondo del lienzo
+     var valorImagenFondo = valoresCasas[imagenFondo];
+ 
+     // Obtener el valor asociado a la imagen soltada
+     var valorImagenSoltada = valoresPersonajes[elemento.src];
+ 
+     // Verificar si el valor de la imagen soltada coincide con el valor de la imagen de fondo del lienzo
+     if (parseInt(valorImagenSoltada) === parseInt(valorImagenFondo)) {
+         // Mostrar el mensaje de felicitación
+         alert('¡Felicidades! Has colocado la imagen correcta en el lienzo.');
+     } 
 }
+
 
 // Función para seleccionar imágenes aleatorias sin repetir
 function seleccionarImagenesAleatorias(imagenes, cantidad) {
