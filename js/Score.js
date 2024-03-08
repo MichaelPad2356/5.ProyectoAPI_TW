@@ -7,6 +7,10 @@ function startGame() {
     // Aquí iría la inicialización de tu juego
 }
 
+function PlayAudio(){
+    document.getElementById('musicaFondo').play();
+}
+
 function endGame(alias, score, time) {
     // Mostrar la pantalla de felicitación
     document.getElementById('gameCanvas').style.display = 'none';
