@@ -33,31 +33,35 @@ body {
 }
 
 #cajasimagenes {
-    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-#cajasimagenes div {
-    width: 200px;
-    height: 215px;
+#cajasimagenes > div {
+    width: 350px; 
+    height: 300px;
     margin: 10px;
-    cursor: grab;
-    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-size: cover; */
+    border: 1px solid #ccc; /* Solo para visualizar el contenedor */
     position: relative;
+    background-repeat: no-repeat;
+    background-size: contain;
+       overflow: hidden;
+    
+   
+   
 }
 
-#cajasimagenes div img {
-    width: auto;
-    height: auto;
+#cajasimagenes > div img {
     max-width: 100%;
     max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    visibility: hidden;
+    object-fit: contain; /* Ajusta la imagen manteniendo la relación de aspecto */
+     /* visibility: hidden; */
+
 }
 
 #mensajeJuego {
