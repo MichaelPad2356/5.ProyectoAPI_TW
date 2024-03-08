@@ -34,12 +34,17 @@ function iniciar() {
         imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
     }
 
+
     for (var i = 0; i < lienzos.length; i++) {
         var lienzo = lienzos[i];
         var imagenCasa = imagenesSeleccionadas[i];
 
         lienzo.style.backgroundImage = 'url(' + imagenCasa + ')';
+        lienzo.style.backgroundSize = '100% 100%';
+        lienzo.style.backgroundRepeat = 'no-repeat';
+        lienzo.style.backgroundPosition = 'center'; 
     }
+    
 
     var imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa] === personaje)));
 
@@ -47,6 +52,10 @@ function iniciar() {
 
     for (var i = 0; i < imagenesPersonajesFiltradas.length; i++) {
         var divPersonaje = document.createElement('div');
+        divPersonaje.style.width = '190px'; // Ajusta el ancho del div
+        divPersonaje.style.height = '190px'; // Ajusta la altura del div
+        divPersonaje.style.marginRight= '60px';
+        divPersonaje.style.marginTop= '60px';
         divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i] + ')';
         divPersonaje.id = 'div' + i;
         divPersonaje.draggable = true;
@@ -84,19 +93,41 @@ function eventoSobre(e) {
 function eventoDrop(e) {
     e.preventDefault();
     var id = e.dataTransfer.getData('Text');
-    var elemento = document.getElementById(id);
+    var divPersonaje = document.getElementById(id);
     var lienzo = e.target;
 
     if (lienzo.classList.contains('lienzo')) {
         var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
-        var imagenPersonajeActual = elemento.style.backgroundImage.replace('url("', '').replace('")', '');
+        var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
+
+        // Verificar si el lienzo ya tiene una imagen
+        if (lienzo.querySelector('.imagen-personaje')) {
+            mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+            return;
+        }
 
         // Verificar si la imagen del personaje coincide con la casa correspondiente
         if (mapeoCasasPersonajes[imagenCasaActual] === imagenPersonajeActual) {
-            var divPersonaje = document.getElementById(id);
-            var divClon = divPersonaje.cloneNode(true);
+            var imgPersonaje = divPersonaje.querySelector('img');
+
+            // Crear un nuevo elemento img con la misma fuente
+            var imgNueva = document.createElement('img');
+            imgNueva.src = imgPersonaje.src;
+            imgNueva.classList.add('imagen-personaje');
+
+            // Posicionar y ajustar el tamaño de la imagen
+            imgNueva.style.position = 'absolute';
+            imgNueva.style.top = '50%';
+            imgNueva.style.left = '50%';
+            imgNueva.style.transform = 'translate(-50%, -50%)';
+            imgNueva.style.maxWidth = '40%';
+            imgNueva.style.maxHeight = '40%';
+
+            lienzo.appendChild(imgNueva);
+
+            // Ocultar el div que contiene la imagen arrastrada
             divPersonaje.style.visibility = 'hidden';
-            lienzo.appendChild(divClon);
+
             mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
         } else {
             mostrarMensaje("Inténtalo de nuevo", "rojo");
@@ -104,7 +135,7 @@ function eventoDrop(e) {
     }
 }
 
-//Imagenes aleatorias
+
 function seleccionarImagenesAleatorias(imagenes, cantidad) {
     const imagenesAleatorias = [];
     const copiaImagenes = [...imagenes];

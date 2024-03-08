@@ -15,8 +15,7 @@ body {
 
 .lienzo {
     border: 2px solid #fff;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 20px;
     position: relative;
     width: 430px;
     height: 430px;
@@ -40,24 +39,19 @@ body {
 }
 
 #cajasimagenes div {
-    width: 200px;
-    height: 215px;
-    margin: 10px;
-    cursor: grab;
-    background-size: cover;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 0; /* Establece el tamaño de fondo a 0 para ocultar la imagen */
 }
 
 #cajasimagenes div img {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     max-width: 100%;
     max-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    visibility: hidden;
+    cursor: pointer;
 }
 
 #mensajeJuego {
