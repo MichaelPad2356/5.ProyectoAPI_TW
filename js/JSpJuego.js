@@ -104,6 +104,7 @@ function eventoDrop(e) {
     }
 }
 
+//Imagenes aleatorias
 function seleccionarImagenesAleatorias(imagenes, cantidad) {
     const imagenesAleatorias = [];
     const copiaImagenes = [...imagenes];
