@@ -3,29 +3,33 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    margin: 0;
-    background-color: #000000; 
-    color: #00ff00; 
-    font-family: 'VT323', monospace; /*Fuente estilo retro de videojuegos*/
+    font-family: 'Press Start 2P', cursive;
+    background-color: #222;
+    color: #fff;
 }
 
 #lienzoContainer {
     display: flex;
-    margin: 10px;
-    gap: 10px;
-    background-color: #191919; /* Color de fondo gris oscuro para el contenedor de los lienzos */
-    padding: 20px;
-    border-radius: 10px;
-    background-size: cover;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Sombra verde neón para dar profundidad al contenedor */
-    border: 2px solid #00ff00; /* Borde verde neón para el contenedor */
+    margin-top: 20px;
 }
 
 .lienzo {
-    border: 2px solid #00ff00; /*Borde verde neón para los lienzos*/
-    margin: 10px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); /* Sombra verde neón suave para los lienzos */
-    border-radius: 5px;
+    border: 2px solid #fff;
+    margin-right: 10px;
+    margin-left: 10px;
+    position: relative;
+    width: 430px;
+    height: 430px;
+    overflow: hidden;
+}
+
+.imagen-casa {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
 }
 
 #cajasimagenes {
@@ -35,20 +39,30 @@ body {
     justify-content: center;
 }
 
-#cajasimagenes img {
-    width: 120px;
-    height: 135px;
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /*Sombra verde neón para resaltar las imágenes*/
-    transition: all 0.3s ease;
-    filter: brightness(0.8); 
+#cajasimagenes div {
+    width: 200px;
+    height: 215px;
+    margin: 10px;
+    cursor: grab;
+    background-size: cover;
+    position: relative;
 }
 
-#cajasimagenes img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 1); /*Sombra verde neón más intensa al hacer hover*/
-    filter: brightness(1.2); /*Aumenta el brillo de la imagen al hacer hover*/
+#cajasimagenes div img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+#mensajeJuego {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
 }

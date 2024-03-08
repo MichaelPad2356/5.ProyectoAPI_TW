@@ -5,22 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/estilosJ.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <script src="../js/JSpJuego.js"></script>
+    <script src="../js/cronometro.js"></script>
 </head>
 <body>
 
+    <div id="cronometro">00:00:00</div>
+    <button onclick="detenerCronometro()">Detener</button>
+    <button onclick="reiniciarCronometro()">Reiniciar</button>
+
+   
     <!-- Lienzos para las casas -->
     <div id="lienzoContainer">
-        <canvas id="lienzo1" class="lienzo" width="370" height="370"></canvas>
-        <canvas id="lienzo2" class="lienzo" width="370" height="370"></canvas>
-        <canvas id="lienzo3" class="lienzo" width="370" height="370"></canvas>
+        <div id="lienzo1" class="lienzo"></div>
+        <div id="lienzo2" class="lienzo"></div>
+        <div id="lienzo3" class="lienzo"></div>
     </div>
-
 
     <!-- Sección para las imágenes de los personajes -->
     <section id="cajasimagenes">
         <!-- Aquí se agregarán dinámicamente las imágenes de los personajes -->
     </section>
+
+    <!-- Mensaje del juego -->
+    <div id="mensajeJuego"></div>
+    
 
 </body>
 </html>
