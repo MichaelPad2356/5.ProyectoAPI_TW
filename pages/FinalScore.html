@@ -8,10 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onclick="PlayAudio()">
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     <div id="congratulationsScreen" style="display:none;">        
         <h1>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</h1>
+        <audio id="audio" loop autoplay muted></audio>
         <div id="finalScores">
             <h1>FINAL SCORES</h1>
             <table>
@@ -31,6 +32,9 @@
         </div>
         <button id="restartGame">Jugar de Nuevo</button>
     </div>
+    <audio id="musicaFondo" autoplay>
+        <source src="../media/MusicaFondo.mp3" type="audio/mpeg">
+    </audio>
     <script src="../js/Score.js"></script>
 </body>
 </html>
