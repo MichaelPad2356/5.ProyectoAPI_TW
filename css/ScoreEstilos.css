@@ -1,10 +1,20 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Silkscreen', sans-serif;
+}
 
 #congratulationsScreen {
-    background-color: black; /* Fondo oscuro para resaltar los colores brillantes */
+    background: url('../media/EndGame.png') no-repeat center center fixed;
+    background-size: cover; /* Ajusta para asegurar que cubra toda la pantalla */
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
+    justify-content: flex-start;
+    padding-top: 5vh;
     align-items: center;
     text-align: center;
     width: 100vw;
@@ -14,75 +24,38 @@
     left: 0;
 }
 
-/* Estilos específicos para la tabla dentro de la pantalla de felicitaciones */
-#congratulationsScreen table {
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-#congratulationsScreen th, #congratulationsScreen td {
-    border: 1px solid white; /* Bordes blancos para contraste */
-    padding: 8px 16px;
-}
-
-#congratulationsScreen th {
-    background-color: #f00; 
-    color: #fff; 
-}
-
-#congratulationsScreen td {
-    background-color: #222; 
-    color: #0f0; 
-}
-
-/* Botón para reiniciar el juego con estilo que coincida con la tabla */
-#congratulationsScreen button {
-    background-color: #ff0; 
-    color: black; 
-    border: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-#finalScores {
-    padding: 10px;
+#congratulationsScreen h1 {
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; /* Efecto de sombra neón */
     margin-bottom: 20px;
 }
 
-table {
-    border-collapse: collapse;
-    margin: 0 auto; /* Centrar la tabla */
-}
-
 th, td {
-    border: 2px solid white; /* Bordes blancos para las celdas */
-    padding: 8px;
-    text-align: left;
+    border: 2px solid #fff; /* Bordes blancos */
+    padding: 5px 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 th {
-    background-color: black; /* Fondo negro para los encabezados */
-    font-family: "Silkscreen", sans-serif;
-
+    background-color: #000; /* Fondo de los encabezados */
+    color: rgb(255, 0, 111); /* Color amarillo neón para los encabezados */
 }
 
-tbody tr {
-    background-color: black; /* Fondo negro para las filas de datos */
-}
-h1{
-    font-family: "Silkscreen", sans-serif;
-
-}
-button {
+td {
+    background-color: #222; 
+    border-collapse: collapse;
     margin-top: 20px;
-    padding: 10px 20px;
-    font-size: large;
-    background-color: yellow; /* Botón amarillo para jugar de nuevo */
-    color: black; /* Texto negro para el botón */
-    border: none;
-    cursor: pointer;
+    color: rgb(255, 255, 255); 
 }
 
+button {
+    background-color: #f00; /* Botón rojo neón */
+    margin-top: 40vh;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 0 10px #f00, 0 0 20px #f00; /* Sombra exterior roja neón */
+    border-radius: 5px;
+}
