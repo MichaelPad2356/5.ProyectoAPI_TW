@@ -43,6 +43,7 @@ function iniciar() {
         lienzo.style.backgroundSize = '100% 100%';
         lienzo.style.backgroundRepeat = 'no-repeat';
         lienzo.style.backgroundPosition = 'center'; 
+        
     }
     
 
@@ -61,6 +62,16 @@ function iniciar() {
         divPersonaje.draggable = true;
         divPersonaje.addEventListener('dragstart', arrastrar, false);
         divPersonaje.addEventListener('dragend', finalizado, false);
+
+
+         // Estilos adicionales para resaltar al pasar el cursor
+            divPersonaje.style.transition = 'transform 0.3s ease';
+            divPersonaje.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.05)'; // Aumentar el tamaño al 105%
+            });
+            divPersonaje.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1)'; // Volver al tamaño original
+            });
 
         var imgPersonaje = document.createElement('img');
         imgPersonaje.src = imagenesPersonajesFiltradas[i];
@@ -102,7 +113,7 @@ function eventoDrop(e) {
 
         // Verificar si el lienzo ya tiene una imagen
         if (lienzo.querySelector('.imagen-personaje')) {
-            mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+            mostrarMensaje("Ya no puedes colocar aquí","rojo");
             return;
         }
 
@@ -167,21 +178,23 @@ function seleccionarImagenesAleatorias(imagenes, cantidad) {
     return imagenesAleatorias;
 }
 
-// Llamada específica para asegurar la aleatoriedad
-imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
 
+function mostrarMensaje(mensaje, color) {
+    var mensajeDiv = document.createElement('div');
+    mensajeDiv.textContent = mensaje;
+    mensajeDiv.classList.add('mensaje');
 
-        function mostrarMensaje(mensaje, color) {
-            const mensajeJuego = document.getElementById("mensajeJuego");
-            mensajeJuego.textContent = mensaje;
-            mensajeJuego.style.color = color;
-            mensajeJuego.style.opacity = 1;
+    if (color === "verde") {
+        mensajeDiv.classList.add('mensaje-verde');
+    } else if (color === "rojo") {
+        mensajeDiv.classList.add('mensaje-rojo');
+    }
 
-            clearTimeout(mensajeTimeout);
-            mensajeTimeout = setTimeout(function() {
-                mensajeJuego.style.opacity = 0;
-            }, 2000);
-        }
+    document.body.appendChild(mensajeDiv);
+
+    setTimeout(function() {
+        mensajeDiv.remove();
+    }, 2000); // Eliminar el mensaje después de 5 segundos (5000 milisegundos)
+}
 
         window.addEventListener('load', iniciar, false);
