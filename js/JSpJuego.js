@@ -18,11 +18,16 @@ function iniciar() {
     // actualizarPuntaje();
     // puntaje = 0;
 
-    //correccion
-    //Correccion
-    const imagenesLocalStorage = JSON.parse(localStorage.getItem('elementosPantalla1'));
-    imagenesSeleccionadas = imagenesLocalStorage || seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-    localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
+        // Eliminar los elementos guardados en localStorage
+        localStorage.removeItem('elementosPantalla1');
+        // localStorage.removeItem('puntaje');
+
+        // puntaje = 0;
+        // actualizarPuntaje();
+
+        // Seleccionar nuevas imágenes de casas aleatorias
+        imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
+        localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
 
     const imagenes = document.querySelectorAll('#cajasimagenes > div');
     for (var i = 0; i < imagenes.length; i++) {
@@ -146,7 +151,7 @@ function eventoDrop(e) {
                         duration: 1000, // Duración de la animación (en milisegundos)
                         easing: 'easeInOutQuad', // Tipo de animación
                         complete: function () {
-                            window.location.href = "prueba2.html";
+                            window.location.href = "PantallaJuego2.html";
                         }
                     });
                 }, 1000);

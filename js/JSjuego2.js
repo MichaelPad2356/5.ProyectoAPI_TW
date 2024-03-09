@@ -148,7 +148,6 @@ function seleccionarImagenesAleatorias(imagenes, cantidad) {
     return imagenesAleatorias;
 }
 
-
 function mostrarMensaje(mensaje, color) {
     var mensajeDiv = document.createElement('div');
     mensajeDiv.textContent = mensaje;
