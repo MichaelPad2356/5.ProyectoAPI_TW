@@ -14,7 +14,15 @@ let imagenesSeleccionadas = [];
 let mensajeTimeout;
 
 function iniciar() {
-    var imagenes = document.querySelectorAll('#cajasimagenes > div');
+    // puntaje = localStorage.getItem('puntaje') ? parseInt(localStorage.getItem('puntaje')) : 0;
+    // actualizarPuntaje();
+    // puntaje = 0;
+
+    const imagenesLocalStorage = JSON.parse(localStorage.getItem('elementosPantalla1'));
+    imagenesSeleccionadas = imagenesLocalStorage || seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
+    localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
+
+    const imagenes = document.querySelectorAll('#cajasimagenes > div');
     for (var i = 0; i < imagenes.length; i++) {
         imagenes[i].addEventListener('dragstart', arrastrar, false);
         imagenes[i].addEventListener('dragend', finalizado, false);
@@ -23,57 +31,40 @@ function iniciar() {
         imagenes[i].style.top = '-1000px';
     }
 
-    var lienzos = document.querySelectorAll('.lienzo');
+    const lienzos = document.querySelectorAll('.lienzo');
     for (var i = 0; i < lienzos.length; i++) {
         lienzos[i].addEventListener('dragenter', eventoEnter, false);
         lienzos[i].addEventListener('dragover', eventoSobre, false);
         lienzos[i].addEventListener('drop', eventoDrop, false);
     }
 
-    if (imagenesSeleccionadas.length === 0) {
-        imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-    }
-
-
     for (var i = 0; i < lienzos.length; i++) {
-        var lienzo = lienzos[i];
-        var imagenCasa = imagenesSeleccionadas[i];
+        const lienzo = lienzos[i];
+        const imagenCasa = imagenesSeleccionadas[i];
 
         lienzo.style.backgroundImage = 'url(' + imagenCasa + ')';
         lienzo.style.backgroundSize = '100% 100%';
         lienzo.style.backgroundRepeat = 'no-repeat';
         lienzo.style.backgroundPosition = 'center'; 
-        
     }
-    
 
-    var imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa] === personaje)));
+    const imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa] === personaje)));
 
     document.getElementById('cajasimagenes').innerHTML = '';
 
     for (var i = 0; i < imagenesPersonajesFiltradas.length; i++) {
-        var divPersonaje = document.createElement('div');
-        divPersonaje.style.width = '190px'; // Ajusta el ancho del div
-        divPersonaje.style.height = '190px'; // Ajusta la altura del div
-        divPersonaje.style.marginRight= '60px';
-        divPersonaje.style.marginTop= '60px';
+        const divPersonaje = document.createElement('div');
+        divPersonaje.style.width = '190px';
+        divPersonaje.style.height = '190px';
+        divPersonaje.style.marginRight = '60px';
+        divPersonaje.style.marginTop = '60px';
         divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i] + ')';
         divPersonaje.id = 'div' + i;
         divPersonaje.draggable = true;
         divPersonaje.addEventListener('dragstart', arrastrar, false);
         divPersonaje.addEventListener('dragend', finalizado, false);
 
-
-         // Estilos adicionales para resaltar al pasar el cursor
-            divPersonaje.style.transition = 'transform 0.3s ease';
-            divPersonaje.addEventListener('mouseover', function() {
-                this.style.transform = 'scale(1.05)'; // Aumentar el tamaño al 105%
-            });
-            divPersonaje.addEventListener('mouseout', function() {
-                this.style.transform = 'scale(1)'; // Volver al tamaño original
-            });
-
-        var imgPersonaje = document.createElement('img');
+        const imgPersonaje = document.createElement('img');
         imgPersonaje.src = imagenesPersonajesFiltradas[i];
         imgPersonaje.draggable = false;
         divPersonaje.appendChild(imgPersonaje);
