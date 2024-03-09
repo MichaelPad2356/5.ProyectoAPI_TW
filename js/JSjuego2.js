@@ -30,10 +30,14 @@ function iniciar() {
         lienzos[i].addEventListener('drop', eventoDrop, false);
     }
 
-    if (imagenesSeleccionadas.length === 0) {
-        imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-    }
+    // Recuperar imágenes almacenadas en el localStorage de la primera pantalla
+    const imagenesLocalStorage = JSON.parse(localStorage.getItem('elementosPantalla1'));
 
+    // Filtrar las imágenes para la segunda pantalla
+    imagenesSeleccionadas = seleccionarImagenesAleatorias(
+        Object.keys(mapeoCasasPersonajes).filter(img => !imagenesLocalStorage.includes(img)),
+        3
+    );
 
     for (var i = 0; i < lienzos.length; i++) {
         var lienzo = lienzos[i];
@@ -43,9 +47,7 @@ function iniciar() {
         lienzo.style.backgroundSize = '100% 100%';
         lienzo.style.backgroundRepeat = 'no-repeat';
         lienzo.style.backgroundPosition = 'center'; 
-        
     }
-    
 
     var imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa] === personaje)));
 
@@ -53,25 +55,15 @@ function iniciar() {
 
     for (var i = 0; i < imagenesPersonajesFiltradas.length; i++) {
         var divPersonaje = document.createElement('div');
-        divPersonaje.style.width = '190px'; // Ajusta el ancho del div
-        divPersonaje.style.height = '190px'; // Ajusta la altura del div
-        divPersonaje.style.marginRight= '60px';
-        divPersonaje.style.marginTop= '60px';
+        divPersonaje.style.width = '190px';
+        divPersonaje.style.height = '190px';
+        divPersonaje.style.marginRight = '60px';
+        divPersonaje.style.marginTop = '60px';
         divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i] + ')';
         divPersonaje.id = 'div' + i;
         divPersonaje.draggable = true;
         divPersonaje.addEventListener('dragstart', arrastrar, false);
         divPersonaje.addEventListener('dragend', finalizado, false);
-
-
-         // Estilos adicionales para resaltar al pasar el cursor
-            divPersonaje.style.transition = 'transform 0.3s ease';
-            divPersonaje.addEventListener('mouseover', function() {
-                this.style.transform = 'scale(1.05)'; // Aumentar el tamaño al 105%
-            });
-            divPersonaje.addEventListener('mouseout', function() {
-                this.style.transform = 'scale(1)'; // Volver al tamaño original
-            });
 
         var imgPersonaje = document.createElement('img');
         imgPersonaje.src = imagenesPersonajesFiltradas[i];
@@ -113,7 +105,7 @@ function eventoDrop(e) {
 
         // Verificar si el lienzo ya tiene una imagen
         if (lienzo.querySelector('.imagen-personaje')) {
-            mostrarMensaje("Ya no puedes colocar aquí","rojo");
+            mostrarMensaje("Ya no puedes colocar aquí", "rojo");
             return;
         }
 
@@ -121,12 +113,10 @@ function eventoDrop(e) {
         if (mapeoCasasPersonajes[imagenCasaActual] === imagenPersonajeActual) {
             var imgPersonaje = divPersonaje.querySelector('img');
 
-            // Crear un nuevo elemento img con la misma fuente
             var imgNueva = document.createElement('img');
             imgNueva.src = imgPersonaje.src;
             imgNueva.classList.add('imagen-personaje');
 
-            // Posicionar y ajustar el tamaño de la imagen
             imgNueva.style.position = 'absolute';
             imgNueva.style.top = '50%';
             imgNueva.style.left = '50%';
@@ -136,34 +126,14 @@ function eventoDrop(e) {
 
             lienzo.appendChild(imgNueva);
 
-            // Ocultar el div que contiene la imagen arrastrada
             divPersonaje.style.visibility = 'hidden';
 
             mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
-
-            // Verificar si todas las imágenes están colocadas correctamente
-            // Verificar si todas las imágenes están colocadas correctamente
-            var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
-            if (imagenesEnLienzos.length === 3) {
-                // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
-                setTimeout(function () {
-                    anime({
-                        targets: 'body',
-                        opacity: 0,
-                        duration: 1000, // Duración de la animación (en milisegundos)
-                        easing: 'easeInOutQuad', // Tipo de animación
-                        complete: function () {
-                            window.location.href = "prueba2.html";
-                        }
-                    });
-                }, 1000);
-            }
-                } else {
-                    mostrarMensaje("Inténtalo de nuevo", "rojo");
-                }
-            }
+        } else {
+            mostrarMensaje("Inténtalo de nuevo", "rojo");
+        }
+    }
 }
-
 
 function seleccionarImagenesAleatorias(imagenes, cantidad) {
     const imagenesAleatorias = [];
@@ -178,23 +148,16 @@ function seleccionarImagenesAleatorias(imagenes, cantidad) {
     return imagenesAleatorias;
 }
 
-
 function mostrarMensaje(mensaje, color) {
-    var mensajeDiv = document.createElement('div');
-    mensajeDiv.textContent = mensaje;
-    mensajeDiv.classList.add('mensaje');
+    const mensajeJuego = document.getElementById("mensajeJuego");
+    mensajeJuego.textContent = mensaje;
+    mensajeJuego.style.color = color;
+    mensajeJuego.style.opacity = 1;
 
-    if (color === "verde") {
-        mensajeDiv.classList.add('mensaje-verde');
-    } else if (color === "rojo") {
-        mensajeDiv.classList.add('mensaje-rojo');
-    }
-
-    document.body.appendChild(mensajeDiv);
-
-    setTimeout(function() {
-        mensajeDiv.remove();
-    }, 2000); // Eliminar el mensaje después de 5 segundos (5000 milisegundos)
+    clearTimeout(mensajeTimeout);
+    mensajeTimeout = setTimeout(function() {
+        mensajeJuego.style.opacity = 0;
+    }, 2000);
 }
 
-        window.addEventListener('load', iniciar, false);
+window.addEventListener('load', iniciar, false);

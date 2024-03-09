@@ -49,7 +49,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-size: 0; /* Establece el tamaño de fondo a 0 para ocultar la imagen */
+            background-size: 0;
         }
 
         #cajasimagenes div img {
@@ -67,14 +67,8 @@
             text-align: center;
             transition: opacity 0.5s ease-in-out;
         }
-
-        #puntaje {
-            margin-top: 10px;
-            font-size: 20px;
-        }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
 
@@ -93,9 +87,6 @@
     <!-- Mensaje del juego -->
     <div id="mensajeJuego"></div>
 
-    <!-- Puntaje -->
-    <div id="puntaje">Puntaje: 0</div>
-
     <script>
         const mapeoCasasPersonajes = {
             '../media/Casas/Cuphead9.png': '../media/Personajes/Cuphead.png',
@@ -111,16 +102,8 @@
 
         let imagenesSeleccionadas = [];
         let mensajeTimeout;
-        let puntaje = 0;
 
         function iniciar() {
-            // Recuperar el puntaje almacenado en localStorage
-            // puntaje = localStorage.getItem('puntaje') ? parseInt(localStorage.getItem('puntaje')) : 0;
-            // actualizarPuntaje();
-            // Reiniciar el puntaje a cero cada vez que se inicie el juego
-            puntaje = 0;
-            actualizarPuntaje();
-
             var imagenes = document.querySelectorAll('#cajasimagenes > div');
             for (var i = 0; i < imagenes.length; i++) {
                 imagenes[i].addEventListener('dragstart', arrastrar, false);
@@ -137,9 +120,14 @@
                 lienzos[i].addEventListener('drop', eventoDrop, false);
             }
 
-            if (imagenesSeleccionadas.length === 0) {
-                imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-            }
+            // Recuperar imágenes almacenadas en el localStorage de la primera pantalla
+            const imagenesLocalStorage = JSON.parse(localStorage.getItem('elementosPantalla1'));
+
+            // Filtrar las imágenes para la segunda pantalla
+            imagenesSeleccionadas = seleccionarImagenesAleatorias(
+                Object.keys(mapeoCasasPersonajes).filter(img => !imagenesLocalStorage.includes(img)),
+                3
+            );
 
             for (var i = 0; i < lienzos.length; i++) {
                 var lienzo = lienzos[i];
@@ -157,10 +145,10 @@
 
             for (var i = 0; i < imagenesPersonajesFiltradas.length; i++) {
                 var divPersonaje = document.createElement('div');
-                divPersonaje.style.width = '190px'; // Ajusta el ancho del div
-                divPersonaje.style.height = '190px'; // Ajusta la altura del div
-                divPersonaje.style.marginRight= '60px';
-                divPersonaje.style.marginTop= '60px';
+                divPersonaje.style.width = '190px';
+                divPersonaje.style.height = '190px';
+                divPersonaje.style.marginRight = '60px';
+                divPersonaje.style.marginTop = '60px';
                 divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i] + ')';
                 divPersonaje.id = 'div' + i;
                 divPersonaje.draggable = true;
@@ -205,28 +193,20 @@
                 var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
                 var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
 
-                /// Verificar si el lienzo ya tiene una imagen
-            if (lienzo.querySelector('.imagen-personaje')) {
-                mostrarMensaje("Ya no puedes colocar aquí", "rojo");
-
-                // Restar puntaje por intento fallido
-                puntaje = Math.max(0, puntaje - 50); // Cambia el valor según tu preferencia
-                actualizarPuntaje();
-
-                return;
-            }
-
+                // Verificar si el lienzo ya tiene una imagen
+                if (lienzo.querySelector('.imagen-personaje')) {
+                    mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+                    return;
+                }
 
                 // Verificar si la imagen del personaje coincide con la casa correspondiente
                 if (mapeoCasasPersonajes[imagenCasaActual] === imagenPersonajeActual) {
                     var imgPersonaje = divPersonaje.querySelector('img');
 
-                    // Crear un nuevo elemento img con la misma fuente
                     var imgNueva = document.createElement('img');
                     imgNueva.src = imgPersonaje.src;
                     imgNueva.classList.add('imagen-personaje');
 
-                    // Posicionar y ajustar el tamaño de la imagen
                     imgNueva.style.position = 'absolute';
                     imgNueva.style.top = '50%';
                     imgNueva.style.left = '50%';
@@ -236,38 +216,10 @@
 
                     lienzo.appendChild(imgNueva);
 
-                    // Ocultar el div que contiene la imagen arrastrada
                     divPersonaje.style.visibility = 'hidden';
 
                     mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
-
-                    // Actualizar puntaje por imagen correcta
-                    puntaje += 135;
-                    actualizarPuntaje();
-
-                    // Verificar si todas las imágenes están colocadas correctamente
-                    var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
-                    if (imagenesEnLienzos.length === 3) {
-                        // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
-                        setTimeout(function () {
-                            anime({
-                                targets: 'body',
-                                opacity: 0,
-                                duration: 1000, // Duración de la animación (en milisegundos)
-                                easing: 'easeInOutQuad', // Tipo de animación
-                                complete: function () {
-                                    // Guardar el puntaje en localStorage antes de redirigir
-                                    localStorage.setItem('puntaje', puntaje);
-                                    window.location.href = "prueba2.html";
-                                }
-                            });
-                        }, 1000);
-                    }
                 } else {
-                    // Restar puntaje por error
-                    puntaje = Math.max(0, puntaje - 65);
-                    actualizarPuntaje();
-
                     mostrarMensaje("Inténtalo de nuevo", "rojo");
                 }
             }
@@ -296,10 +248,6 @@
             mensajeTimeout = setTimeout(function() {
                 mensajeJuego.style.opacity = 0;
             }, 2000);
-        }
-
-        function actualizarPuntaje() {
-            document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
         }
 
         window.addEventListener('load', iniciar, false);
