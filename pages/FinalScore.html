@@ -5,31 +5,17 @@
     <title>Juego y Pantalla de Felicitación</title>
     <link rel="stylesheet" href="../css/ScoreEstilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onclick="PlayAudio()">
     <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <div id="congratulationsScreen" style="display:none;">        
+    <div id="congratulationsScreen" style="display:none;">
         <h1>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</h1>
+        <h2 id="finalScore">Puntuación Final: 0</h2> 
+        <h2 id="bestTime">Mejor tiempo: --</h2> 
         <audio id="audio" loop autoplay muted></audio>
-        <div id="finalScores">
-            <h1>FINAL SCORES</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ALIAS</th>
-                        <th>SCORE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Jugador 1</td>
-                        <td>12345</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <p id="motivationalText">¡Sigue así! Cada juego es una oportunidad para superarte.</p>
         <button id="restartGame">Jugar de Nuevo</button>
     </div>
     <audio id="musicaFondo" autoplay>
@@ -38,4 +24,3 @@
     <script src="../js/Score.js"></script>
 </body>
 </html>
-
