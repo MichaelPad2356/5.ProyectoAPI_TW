@@ -17,6 +17,7 @@ function iniciar() {
     // puntaje = localStorage.getItem('puntaje') ? parseInt(localStorage.getItem('puntaje')) : 0;
     // actualizarPuntaje();
     // puntaje = 0;
+
         // Eliminar los elementos guardados en localStorage
         localStorage.removeItem('elementosPantalla1');
         // localStorage.removeItem('puntaje');
@@ -27,7 +28,6 @@ function iniciar() {
         // Seleccionar nuevas imágenes de casas aleatorias
         imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
         localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
-
 
     const imagenes = document.querySelectorAll('#cajasimagenes > div');
     for (var i = 0; i < imagenes.length; i++) {

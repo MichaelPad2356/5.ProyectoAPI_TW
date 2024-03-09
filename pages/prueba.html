@@ -114,13 +114,15 @@
         let puntaje = 0;
 
         function iniciar() {
+
             // Eliminar los elementos guardados en localStorage
             localStorage.removeItem('elementosPantalla1');
             localStorage.removeItem('puntaje');
 
             puntaje = 0;
             actualizarPuntaje();
-
+           
+           
             // Seleccionar nuevas imágenes de casas aleatorias
             imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
             localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
