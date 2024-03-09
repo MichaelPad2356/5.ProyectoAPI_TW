@@ -16,20 +16,24 @@ function endGame(alias, score, time) {
     document.getElementById('gameCanvas').style.display = 'none';
     document.getElementById('congratulationsScreen').style.display = 'flex';
     document.getElementById('playerAlias').textContent = alias;
-    document.getElementById('finalScore').textContent = score;
-    
+    // Suponiendo que hayas añadido finalScore en tu HTML:
+    document.getElementById('finalScore').textContent = `Puntuación Final: ${score}`;
+
     // Almacenar y actualizar el mejor tiempo en LocalStorage
     const bestTime = localStorage.getItem('bestTime') ? parseInt(localStorage.getItem('bestTime')) : Infinity;
     if (time < bestTime) {
         localStorage.setItem('bestTime', time);
-        document.getElementById('bestTime').textContent = time;
+        // Asegúrate de que existe un elemento para el mejor tiempo en tu HTML
+        document.getElementById('bestTime').textContent = `Mejor tiempo: ${time} segundos`;
     } else {
-        document.getElementById('bestTime').textContent = bestTime;
+        document.getElementById('bestTime').textContent = `Mejor tiempo: ${bestTime} segundos`;
     }
-    
+
     // Almacenar y actualizar la puntuación en LocalStorage
     localStorage.setItem('score', score);
+    localStorage.setItem('aliasUsuario', alias); // Asegúrate de añadir esto
 }
+
 function mostrarPantallaFelicitaciones() {
     // Recuperar datos del usuario
     var aliasUsuario = localStorage.getItem("aliasUsuario");
