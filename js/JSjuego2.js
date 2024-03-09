@@ -148,16 +148,34 @@ function seleccionarImagenesAleatorias(imagenes, cantidad) {
     return imagenesAleatorias;
 }
 
-function mostrarMensaje(mensaje, color) {
-    const mensajeJuego = document.getElementById("mensajeJuego");
-    mensajeJuego.textContent = mensaje;
-    mensajeJuego.style.color = color;
-    mensajeJuego.style.opacity = 1;
 
-    clearTimeout(mensajeTimeout);
-    mensajeTimeout = setTimeout(function() {
-        mensajeJuego.style.opacity = 0;
-    }, 2000);
+function mostrarMensaje(mensaje, color) {
+    var mensajeDiv = document.createElement('div');
+    mensajeDiv.textContent = mensaje;
+    mensajeDiv.classList.add('mensaje');
+
+    if (color === "verde") {
+        mensajeDiv.classList.add('mensaje-verde');
+    } else if (color === "rojo") {
+        mensajeDiv.classList.add('mensaje-rojo');
+    }
+
+    document.body.appendChild(mensajeDiv);
+
+    setTimeout(function() {
+        mensajeDiv.remove();
+    }, 2000); // Eliminar el mensaje después de 5 segundos (5000 milisegundos)
 }
+// function mostrarMensaje(mensaje, color) {
+//     const mensajeJuego = document.getElementById("mensajeJuego");
+//     mensajeJuego.textContent = mensaje;
+//     mensajeJuego.style.color = color;
+//     mensajeJuego.style.opacity = 1;
+
+//     clearTimeout(mensajeTimeout);
+//     mensajeTimeout = setTimeout(function() {
+//         mensajeJuego.style.opacity = 0;
+//     }, 2000);
+// }
 
 window.addEventListener('load', iniciar, false);
