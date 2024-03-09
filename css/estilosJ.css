@@ -6,6 +6,9 @@ body {
     font-family: 'Press Start 2P', cursive;
     background-color: #222;
     color: #fff;
+    background-image: url("../media/fondo.gif");
+    background-size: cover; /*  La imagen de fondo cubrirá todo el fondo  */
+    background-repeat: no-repeat; /* Evitar la repetición de la imagen */
 }
 
 #lienzoContainer {
@@ -13,13 +16,20 @@ body {
     margin-top: 20px;
 }
 
-.lienzo {
-    border: 2px solid #fff;
+.lienzo{
+  
     margin-right: 20px;
     position: relative;
-    width: 430px;
-    height: 430px;
+    width: 400px;
+    height: 400px;
     overflow: hidden;
+    border-radius: 5px ;
+     box-shadow: 0 0 30px rgba(39, 45, 235, 0.9); /* Sombreado azul */
+    border-left: #6ad5e8 8px groove;
+    border-top:  #494d50 8px groove ;
+    border-right: #096251 8px groove;
+    border-bottom: #762703 8px groove;
+   
 }
 
 .imagen-casa {
@@ -29,6 +39,7 @@ body {
     top: 0;
     left: 0;
     visibility: hidden;
+    
 }
 
 #cajasimagenes {
@@ -36,14 +47,23 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    
 }
 
-#cajasimagenes div {
+#cajasimagenes > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: 0; /* Establece el tamaño de fondo a 0 para ocultar la imagen */
+    background-size: 0; /*Establece el tamaño de fondo a 0 para ocultar la imagen */
+    border-left: #17cff0 8px groove;
+    border-top:  rgb(10, 40, 85) 8px groove ;
+    border-right: #3fd6ba 8px groove;
+    border-bottom: #1485b9 8px groove;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgb(149, 149, 202); /* Sombreado azul */
+    /*transition: transform 0.3s ease; /* Transición suave al aumentar el tamaño */
 }
+
 
 #cajasimagenes div img {
     width: 100%;
@@ -52,11 +72,28 @@ body {
     max-width: 100%;
     max-height: 100%;
     cursor: pointer;
-}
+} 
 
-#mensajeJuego {
+.mensaje {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 30px;
     text-align: center;
     transition: opacity 0.5s ease-in-out;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+
+.mensaje-verde {
+    background-color: #00cc00; /* Verde */
+    color: #fff;
+}
+
+.mensaje-rojo {
+    background-color: #cc0000; /* Rojo */
+    color: #fff;
 }
