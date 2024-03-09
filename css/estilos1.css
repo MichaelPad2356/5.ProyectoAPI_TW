@@ -22,7 +22,7 @@ body {
 
 #subtitle {
     color: #faf5f5; /* Tono de rojo más claro */
-    font-size: 24px;
+    font-size: 35px;
     margin-bottom: 40px;
 }
 
@@ -50,7 +50,15 @@ body {
     background-color: #ff0000; /* Negro más oscuro al pasar el ratón */
 }
 
-audio {
-    width: 100%;
-    margin-top: 20px;
+#creditsButton {
+    font-size: 30px;
+    font-weight: bold;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    margin-top: 275px;
+    text-align: center;
 }
