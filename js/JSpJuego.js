@@ -146,7 +146,7 @@ function eventoDrop(e) {
                         duration: 1000, // Duración de la animación (en milisegundos)
                         easing: 'easeInOutQuad', // Tipo de animación
                         complete: function () {
-                            window.location.href = "prueba2.html";
+                            window.location.href = "PantallaJuego2.html";
                         }
                     });
                 }, 1000);

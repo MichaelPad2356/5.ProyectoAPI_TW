@@ -6,57 +6,155 @@ body {
     font-family: 'Press Start 2P', cursive;
     background-color: #222;
     color: #fff;
-}
-
-#lienzoContainer {
+    background-image: url("../media/fondo.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: fondo-movimiento 10s infinite linear;
+  }
+  
+  @keyframes fondo-movimiento {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+  
+  #lienzoContainer {
     display: flex;
     margin-top: 20px;
-}
-
-.lienzo {
-    border: 2px solid #fff;
+  }
+  
+  .lienzo {
     margin-right: 20px;
     position: relative;
-    width: 430px;
-    height: 430px;
+    width: 400px;
+    height: 400px;
     overflow: hidden;
-}
-
-.imagen-casa {
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(235, 45, 45, 0.9);
+    border-left: #d56a8d 8px groove;
+    border-top: #504949 8px groove;
+    border-right: #625109 8px groove;
+    border-bottom: #762703 8px groove;
+    animation: brillo-lienzo 2s infinite;
+  }
+  
+  @keyframes brillo-lienzo {
+    0% {
+      box-shadow: 0 0 30px rgba(235, 45, 45, 0.9);
+    }
+    50% {
+      box-shadow: 0 0 50px rgba(235, 45, 45, 1);
+    }
+    100% {
+      box-shadow: 0 0 30px rgba(235, 45, 45, 0.9);
+    }
+  }
+  
+  .imagen-casa {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     visibility: hidden;
-}
-
-#cajasimagenes {
+  }
+  
+  #cajasimagenes {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-#cajasimagenes div {
+  }
+  
+  #cajasimagenes > div {
     display: flex;
     justify-content: center;
     align-items: center;
     background-size: 0;
-}
-
-#cajasimagenes div img {
+    border-left: #f01717 8px groove;
+    border-top: rgb(85, 10, 40) 8px groove;
+    border-right: #ba3f3f 8px groove;
+    border-bottom: #b91414 8px groove;
+    border-radius: 5px;
+    box-shadow: 0 0 40px rgb(202, 149, 149);
+    animation: pulsar 1s infinite;
+    transition: transform 0.3s ease;
+  }
+  
+  @keyframes pulsar {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+  }
+  
+  #cajasimagenes div:hover {
+    transform: scale(1.1);
+    animation: brillo-caja 1s infinite;
+  }
+  
+  @keyframes brillo-caja {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 0, 0, 1);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+  }
+  
+  #cajasimagenes div img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
     cursor: pointer;
-}
-
-#mensajeJuego {
+  }
+  
+  .mensaje {
     margin-top: 20px;
-    font-size: 24px;
+    font-size: 30px;
     text-align: center;
     transition: opacity 0.5s ease-in-out;
-}
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    animation: parpadeo 1s infinite;
+  }
+  
+  @keyframes parpadeo {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .mensaje-verde {
+    background-color: #00cc00;
+    color: #fff;
+  }
+  
+  .mensaje-rojo {
+    background-color: #cc0000;
+    color: #fff;
+  }
