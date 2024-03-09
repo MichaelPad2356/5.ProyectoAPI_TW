@@ -18,6 +18,7 @@ function iniciar() {
     // actualizarPuntaje();
     // puntaje = 0;
 
+    //Correccion
     const imagenesLocalStorage = JSON.parse(localStorage.getItem('elementosPantalla1'));
     imagenesSeleccionadas = imagenesLocalStorage || seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
     localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
