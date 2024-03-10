@@ -160,6 +160,16 @@ body {
     color: #fff;
   }
 
+
+  
+  .container-button {
+    display: flex;
+    flex-direction: column; /* Alinear los elementos en columna */
+    align-items: center; /* Centrar horizontalmente los elementos */
+    justify-content: center; /* Centrar verticalmente los elementos */
+    margin-top: 30px; /* Ajustar la distancia hacia abajo */
+}
+
   button {
     font-family: "Anta", sans-serif;
     background-color: #ff0000; /* Rojo */
@@ -169,11 +179,17 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: flex;
-    margin-left: 267px;
+    /* margin-left: 267px; */
+    animation: brillo 2s infinite; /* Agrega el efecto de brillo al botón */
 }
 
 
+@keyframes brillo {
+  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.9); }
+  100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8); }
+}
+
 button:hover {
-    background-color: #990000; /* Cambia el color al pasar el mouse sobre el botón */
+  background-color: #990000; /* Cambia el color al pasar el mouse sobre el botón */
 }
