@@ -142,92 +142,106 @@ function eventoSobre(e) {
 }
 
 function eventoDrop(e) {
-e.preventDefault();
-var id = e.dataTransfer.getData('Text');
-var divPersonaje = document.getElementById(id);
-var lienzo = e.target;
+    e.preventDefault();
+    var id = e.dataTransfer.getData('Text');
+    var divPersonaje = document.getElementById(id);
+    var lienzo = e.target;
 
-if (lienzo.classList.contains('lienzo')) {
-    var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
-    var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
+    if (lienzo.classList.contains('lienzo')) {
+        var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
+        var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
 
-    // Verificar si el lienzo ya tiene una imagen
-    if (lienzo.querySelector('.imagen-personaje')) {
-        mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+        // Verificar si el lienzo ya tiene una imagen
+        if (lienzo.querySelector('.imagen-personaje')) {
+            mostrarMensaje("Ya no puedes colocar aquí", "rojo");
 
-        // Restar puntaje por intento fallido
-        puntaje = Math.max(0, puntaje - 50); // Cambia el valor según tu preferencia
-        actualizarPuntaje();
+            // Restar puntaje por intento fallido
+            puntaje = Math.max(0, puntaje - 50); // Cambia el valor según tu preferencia
+            actualizarPuntaje();
 
-        return;
-    }
+            // Reproducir sonido de perder
+            reproducirSonido('../media/audios/sonido_personajes/perder.wav');
 
-    // Verificar si la imagen del personaje coincide con la casa correspondiente
-    if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
-        var imgPersonaje = divPersonaje.querySelector('img');
-
-        // Crear un nuevo elemento img con la misma fuente
-        var imgNueva = document.createElement('img');
-        imgNueva.src = imgPersonaje.src;
-        imgNueva.classList.add('imagen-personaje');
-
-        // Posicionar y ajustar el tamaño de la imagen
-        imgNueva.style.position = 'absolute';
-        imgNueva.style.top = '50%';
-        imgNueva.style.left = '50%';
-        imgNueva.style.transform = 'translate(-50%, -50%)';
-        imgNueva.style.maxWidth = '40%';
-        imgNueva.style.maxHeight = '40%';
-
-        lienzo.appendChild(imgNueva);
-
-        // Agregar un elemento para mostrar el nombre debajo de la imagen en el lienzo
-        const nombrePersonajeEnLienzo = document.createElement('div');
-        nombrePersonajeEnLienzo.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
-        nombrePersonajeEnLienzo.style.textAlign = 'center';
-        nombrePersonajeEnLienzo.style.fontSize = '12px';
-        nombrePersonajeEnLienzo.style.color = '#fff';
-        lienzo.appendChild(nombrePersonajeEnLienzo);
-
-        // Ocultar el div que contiene la imagen arrastrada
-        divPersonaje.style.visibility = 'hidden';
-
-        // Reproducir sonido del personaje y luego la voz
-        reproducirSonidoYVoz(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
-
-        mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
-
-        // Actualizar puntaje por imagen correcta
-        puntaje += 135;
-        actualizarPuntaje();
-
-        // Verificar si todas las imágenes están colocadas correctamente
-        var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
-        if (imagenesEnLienzos.length === 3) {
-            // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
-            setTimeout(function () {
-                anime({
-                    targets: 'body',
-                    opacity: 0,
-                    duration: 1000, // Duración de la animación (en milisegundos)
-                    easing: 'easeInOutQuad', // Tipo de animación
-                    complete: function () {
-                        // Guardar el puntaje en localStorage antes de redirigir
-                        localStorage.setItem('puntaje', puntaje);
-                        window.location.href = "PantallaJuego2.html";
-                    }
-                });
-            }, 6000);
+            return;
         }
-    } else {
-        // Restar puntaje por error
-        puntaje = Math.max(0, puntaje - 65);
-        actualizarPuntaje();
 
-        mostrarMensaje("Inténtalo de nuevo", "rojo");
+        // Verificar si la imagen del personaje coincide con la casa correspondiente
+        if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
+            var imgPersonaje = divPersonaje.querySelector('img');
+
+            // Crear un nuevo elemento img con la misma fuente
+            var imgNueva = document.createElement('img');
+            imgNueva.src = imgPersonaje.src;
+            imgNueva.classList.add('imagen-personaje');
+
+            // Posicionar y ajustar el tamaño de la imagen
+            imgNueva.style.position = 'absolute';
+            imgNueva.style.top = '50%';
+            imgNueva.style.left = '50%';
+            imgNueva.style.transform = 'translate(-50%, -50%)';
+            imgNueva.style.maxWidth = '40%';
+            imgNueva.style.maxHeight = '40%';
+
+            lienzo.appendChild(imgNueva);
+
+            // Añadir la nueva imagen al lienzo
+        lienzo.appendChild(imgNueva);
+        // Crear un contenedor para el nombre del personaje
+        var nombrePersonaje = document.createElement('div');
+        nombrePersonaje.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
+        nombrePersonaje.style.position = 'absolute';
+        nombrePersonaje.style.width = '100%';
+        nombrePersonaje.style.bottom = '5px';
+        nombrePersonaje.style.textAlign = 'center';
+        nombrePersonaje.style.color = 'white';
+        nombrePersonaje.style.fontSize = '16px';
+
+        // Añadir el nombre del personaje al lienzo
+        lienzo.appendChild(nombrePersonaje);
+            // Ocultar el div que contiene la imagen arrastrada
+            divPersonaje.style.visibility = 'hidden';
+
+            // Reproducir sonido del personaje y luego la voz
+            reproducirSonidoYVoz(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
+
+            mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
+
+            // Actualizar puntaje por imagen correcta
+            puntaje += 135;
+            actualizarPuntaje();
+
+            // Verificar si todas las imágenes están colocadas correctamente
+            var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
+            if (imagenesEnLienzos.length === 3) {
+                // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
+                setTimeout(function () {
+                    anime({
+                        targets: 'body',
+                        opacity: 0,
+                        duration: 1000, // Duración de la animación (en milisegundos)
+                        easing: 'easeInOutQuad', // Tipo de animación
+                        complete: function () {
+                            // Guardar el puntaje en localStorage antes de redirigir
+                            localStorage.setItem('bestTime', tiempoInicial);
+                            localStorage.setItem('puntaje', puntaje);
+                            window.location.href = "PantallaJuego2.html";
+                        }
+                    });
+                }, 4000); // Cambié el tiempo a 4 segundos
+            }
+        } else {
+            // Restar puntaje por error
+            puntaje = Math.max(0, puntaje - 65);
+            actualizarPuntaje();
+
+            mostrarMensaje("Inténtalo de nuevo", "rojo");
+
+            // Reproducir sonido de perder
+            reproducirSonido('../media/audios/sonido_personajes/perder.wav');
+        }
     }
 }
-}
+
 
 function reproducirSonidoYVoz(nombreSonido, nombreVoz) {
     reproducirSonido(nombreSonido)

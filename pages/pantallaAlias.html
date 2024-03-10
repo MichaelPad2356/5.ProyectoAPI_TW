@@ -7,13 +7,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../css/estilosA.css">
-  <script src="../js/contadorTiempo.js"></script>
   <title></title>
 </head>
 <body>
 
   <h1>Bienvenido al Juego</h1>
-
+<!-- 
   <div id="datos-container" style="display: flexbox;">
   <div id="datos">
     <br>
@@ -28,12 +27,19 @@
 
   <div id="resultados-container" style="display: flexbox;">
     <div id="resultados">
-    <div id="mensaje" style="color: white;"></div> <!-- Nuevo elemento para mostrar mensajes -->
+    <div id="mensaje" style="color: white;"></div> 
       <h2 id="tituloResultados">Tabla de Resultados</h2>
       <p id="puntos">Puntos: 0</p>
       <p id="mejorTiempo">Mejor Tiempo: 0 segundos</p>
     </div>
-  </div>
+  </div> -->
 
+  <h1>Ingreso de Jugador</h1>
+    <label for="alias">Alias:</label>
+    <input type="text" id="alias">
+    <button id="ingresar">Ingresar</button>
+    <div id="estadisticas"></div>
+
+    <script src="../js/contadorTiempo.js"></script>
 </body>
 </html>

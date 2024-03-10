@@ -158,3 +158,21 @@ body {
     background-color: #cc0000;
     color: #fff;
   }
+
+  button {
+    font-family: "Anta", sans-serif;
+    background-color: #ff0000; /* Rojo */
+    color: #ffffff; /* Blanco */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    margin-left: 267px;
+}
+
+
+button:hover {
+    background-color: #990000; /* Cambia el color al pasar el mouse sobre el botón */
+}

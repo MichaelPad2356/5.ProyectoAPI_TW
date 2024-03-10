@@ -1,9 +1,10 @@
 // Variable para almacenar el intervalo del cronómetro
 let intervalo;
+let tiempoInicial = 0; // Tiempo inicial en segundos
+
 
 // Función para iniciar el cronómetro
 function iniciarCronometro() {
-    let tiempoInicial = 0; // Tiempo inicial en segundos
     let contador = document.getElementById('cronometro');
 
     // Función que actualiza el cronómetro cada segundo
@@ -25,16 +26,16 @@ function iniciarCronometro() {
     }, 1000); // Actualizar cada segundo (1000 milisegundos)
 }
 
-// Función para detener el cronómetro
-function detenerCronometro() {
-    clearInterval(intervalo);
-}
+// // Función para detener el cronómetro
+// function detenerCronometro() {
+//     clearInterval(intervalo);
+// }
 
-// Función para reiniciar el cronómetro
-function reiniciarCronometro() {
-    detenerCronometro();
-    document.getElementById('cronometro').textContent = '00:00:00';
-}
+// // Función para reiniciar el cronómetro
+// function reiniciarCronometro() {
+//     detenerCronometro();
+//     document.getElementById('cronometro').textContent = '00:00:00';
+// }
 
 // Llamar a la función iniciarCronometro() cuando la página haya cargado completamente
 window.onload = function() {
