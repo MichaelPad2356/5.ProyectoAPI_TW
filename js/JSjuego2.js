@@ -270,7 +270,7 @@ function eventoDrop(e) {
                             window.location.href = "FinalScore.html";
                         }
                     });
-                }, 4000); // Cambié el tiempo a 4 segundos
+                }, 6000); // Cambié el tiempo a 4 segundos
             }
         } else {
             mostrarMensaje("Inténtalo de nuevo", "rojo");

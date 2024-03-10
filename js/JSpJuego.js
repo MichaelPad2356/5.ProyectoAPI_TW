@@ -227,7 +227,7 @@ function eventoDrop(e) {
                             window.location.href = "PantallaJuego2.html";
                         }
                     });
-                }, 4000); // Cambié el tiempo a 4 segundos
+                }, 6000); // Cambié el tiempo a 4 segundos
             }
         } else {
             // Restar puntaje por error
