@@ -32,6 +32,7 @@ body {
 }
 
 #startButton {
+    /* boton de inicio */
     background-color: #ff0000; /* Negro */
     color: #ffffff; /* Rojo claro */
     padding: 20px 40px;
