@@ -1,5 +1,4 @@
 body {
-    font-family: 'Roboto', sans-serif;
     background-color: #1a1a1a;
     color: #fff;
     margin: 0;
@@ -47,4 +46,22 @@ a {
 
 a:hover {
     color: #8bc34a;
+}
+
+button {
+    font-family: "Anta", sans-serif;
+    background-color: #ff0000; /* Rojo */
+    color: #ffffff; /* Blanco */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    margin-left: 267px;
+}
+
+
+button:hover {
+    background-color: #990000; /* Cambia el color al pasar el mouse sobre el botón */
 }
