@@ -33,7 +33,7 @@ function endGame(alias, score, time) {
     localStorage.setItem('score', score);
     localStorage.setItem('aliasUsuario', alias); // Asegúrate de añadir esto
 }
-
+/*vhvhgcvcu*/
 function mostrarPantallaFelicitaciones() {
     // Recuperar datos del usuario
     var aliasUsuario = localStorage.getItem("aliasUsuario");
