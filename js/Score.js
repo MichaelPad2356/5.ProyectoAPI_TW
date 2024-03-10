@@ -18,36 +18,44 @@ function endGame(alias, score, time) {
     document.getElementById('gameCanvas').style.display = 'none';
     document.getElementById('congratulationsScreen').style.display = 'flex';
     document.getElementById('playerAlias').textContent = alias;
-    // Suponiendo que hayas añadido finalScore en tu HTML:
     document.getElementById('finalScore').textContent = `Puntuación Final: ${score}`;
 
-    // Almacenar y actualizar el mejor tiempo en LocalStorage
-    const bestTime = localStorage.getItem('bestTime') ? parseInt(localStorage.getItem('bestTime')) : Infinity;
-    if (time > bestTime) {
-        //localStorage.setItem('bestTime', time);
-        // Asegúrate de que existe un elemento para el mejor tiempo en tu HTML
-        document.getElementById('bestTime').textContent = `Mejor tiempo: ${time} segundos`;
+    // Obtener los jugadores almacenados en localStorage o inicializar un arreglo vacío
+    let players = JSON.parse(localStorage.getItem('jugadores') || '[]');
+
+    // Buscar al jugador actual por su alias
+    let currentPlayerIndex = players.findIndex(player => player.alias === alias);
+
+    // Si el jugador existe, actualizar su puntuación y tiempo
+    if (currentPlayerIndex !== -1) {
+        let currentPlayer = players[currentPlayerIndex];
+
+        // Actualizar la puntuación si la nueva es mayor
+        currentPlayer.puntos = Math.max(currentPlayer.puntos, score);
+
+        // Actualizar el mejor tiempo si el nuevo tiempo es menor
+        currentPlayer.mejorTiempo = Math.min(currentPlayer.mejorTiempo || Infinity, time);
+
+        players[currentPlayerIndex] = currentPlayer;
     } else {
-        document.getElementById('bestTime').textContent = `Mejor tiempo: ${bestTime} segundos`;
+        // Si el jugador no existe, agregar un nuevo objeto
+        players.push({ alias, puntos: score, mejorTiempo: time });
     }
 
-    // Almacenar y actualizar la puntuación en LocalStorage
-    /* localStorage.setItem('score', score);
-    localStorage.setItem('aliasUsuario', alias); // Asegúrate de añadir esto */
+    // Guardar los jugadores actualizados en localStorage
+    localStorage.setItem('jugadores', JSON.stringify(players));
 
-    let players = JSON.parse(localStorage.getItem('jugadores')  || '[]')
+    // Obtener el mejor tiempo de todos los jugadores
+    const bestTime = Math.min(
+        ...players
+            .filter(player => typeof player.mejorTiempo === 'number')
+            .map(player => player.mejorTiempo)
+    );
 
-    let currentPlayerInd = players.findIndex((a)=> a.alias === alias);
-    if(currentPlayerInd !== -1){
-        let currentPlayer = players[currentPlayerInd]
-        currentPlayer.mejorTiempo = currentPlayer.mejorTiempo > time ? currentPlayer.mejorTiempo : time;
-        currentPlayer.puntos = currentPlayer.puntos > score ? currentPlayer.puntos : score 
-        players[currentPlayerInd] = currentPlayer
-
-        localStorage.setItem('jugadores',JSON.stringify(players))
-    }
+    // Mostrar el mejor tiempo en el HTML
+    document.getElementById('bestTime').textContent = `Mejor tiempo: ${bestTime !== Infinity ? `${time} segundos` : 'N/A'}`;
 }
-/*vhvhgcvcu*/
+
 function mostrarPantallaFelicitaciones() {
     // Recuperar datos del usuario
     var aliasUsuario = localStorage.getItem("aliasUsuario");
@@ -74,20 +82,17 @@ function mostrarPantallaFelicitaciones() {
     document.getElementById('congratulationsScreen').style.display = 'flex';
 }
 
-function mainEndGame(){
-    let currentAlias= localStorage.getItem('currentAlias') || ''
-    let currentMaxPoints = parseInt(localStorage.getItem('puntaje')|| 0) 
-    let currentMaxTime = parseInt(localStorage.getItem('bestTime') || 0) 
+function mainEndGame() {
+    let currentAlias = localStorage.getItem('currentAlias') || ''
+    let currentMaxPoints = parseInt(localStorage.getItem('puntaje') || 0)
+    let currentMaxTime = parseInt(localStorage.getItem('bestTime') || 0)
 
     console.log(currentAlias, currentMaxPoints, currentMaxTime)
     endGame(currentAlias, currentMaxPoints, currentMaxTime);
     // Esto es solo un ejemplo; deberás integrarlo con la lógica de fin de juego de tu aplicación
     mostrarPantallaFelicitaciones();
-    
+
 }
 
-
 // esta función se llama cuando el juego termina
-mainEndGame()
-
- 
+mainEndGame();

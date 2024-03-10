@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Juego y Pantalla de Felicitación</title>
-    <link rel="stylesheet" href="../css/ScoreEstilos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Juego y Pantalla de Felicitación</title>
+  <link rel="stylesheet" href="../css/ScoreEstilos.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../media/logo-Photoroom.png-Photoroom.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onclick="PlayAudio()">
-    <canvas id="gameCanvas" width="800" height="600" style="display:none;"></canvas>
-    <div id="congratulationsScreen" style="display:none;">
-        <div>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</div>
-        <div id="finalScore">Puntuación Final: 0</div> 
-        <div id="bestTime">Mejor tiempo: --</div> 
-        <h2 id="Motivacion">¡Sigue asi! Cada juego es una oportunidad para superarte </h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Alias</th>
-                    <th>Puntaje</th>
-                </tr>
-            </thead>
-            <tbody id="tablaPuntuaciones">
-                <!-- Filas de la tabla de puntajes -->
-            </tbody>
-        </table>
-        <button id="restartGame">  <a href="pantalla1.html" id="startButton">Jugar de Nuevo</a></button>
-    </div>
-    <audio id="musicaFondo" autoplay loop>
-        <source src="../media/MusicaFondo.wav" type="audio/mpeg">
-    </audio>
-    <script src="../js/Score.js"></script>
+  <canvas id="gameCanvas" width="800" height="600" style="display:none;"></canvas>
+  <div id="congratulationsScreen" style="display:none;">
+    <div>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</div>
+    <div id="finalScore">Puntuación Final: 0</div>
+    <div id="bestTime">Mejor tiempo: --</div>
+    <h2 id="Motivacion">¡Sigue así! Cada juego es una oportunidad para superarte</h2>
+    <button id="verPuntuaciones">Ver Puntuaciones</button>
+    <table id="tablaPuntuaciones" style="display:none;">
+      <thead>
+        <tr>
+          <th>Alias</th>
+          <th>Puntos</th>
+          <th>Mejor Tiempo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filas de la tabla de puntajes -->
+      </tbody>
+    </table>
+    <button id="restartGame">
+      <a href="pantalla1.html" id="startButton">Jugar de Nuevo</a>
+    </button>
+  </div>
+  <audio id="musicaFondo" autoplay loop>
+    <source src="../media/MusicaFondo.wav" type="audio/mpeg">
+  </audio>
+  <script src="../js/Score.js"></script>
+  <script src="../js/resultados.js"></script>
 </body>
 </html>
