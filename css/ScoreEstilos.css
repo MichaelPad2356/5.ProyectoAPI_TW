@@ -64,6 +64,7 @@ button:hover {
     }
 }
 
+
 div {
     color: #ffffff; 
     background-color: #1e1e1e4a; 
@@ -119,3 +120,30 @@ span#playerAlias {
     background-color: #4549a0; 
     box-shadow: 0 2px #666;
 }
+
+
+#b1 {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 1250px;
+  }
+  
+  .fa-volume-high {
+    font-size: 2em; /* Tamaño del icono */
+    color: #ececec; /* Color del icono */
+  }
+  
+  .fa-volume-xmark {
+    font-size: 2em; /* Tamaño del icono */
+    color: #ececec; /* Color del icono */
+  }
+  
+  /* Estilos para los botones */
+  #b1 {
+    display: inline-block;
+    margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }

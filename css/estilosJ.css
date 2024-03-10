@@ -176,3 +176,30 @@ body {
 button:hover {
     background-color: #990000; /* Cambia el color al pasar el mouse sobre el botón */
 }
+
+
+#b1 {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 1250px;
+}
+
+.fa-volume-high {
+  font-size: 2em; /* Tamaño del icono */
+  color: #ececec; /* Color del icono */
+}
+
+.fa-volume-xmark {
+  font-size: 2em; /* Tamaño del icono */
+  color: #ececec; /* Color del icono */
+}
+
+/* Estilos para los botones */
+#b1 {
+  display: inline-block;
+  margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
