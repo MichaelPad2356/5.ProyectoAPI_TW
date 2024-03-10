@@ -11,6 +11,12 @@ function PlayAudio(){
     document.getElementById('musicaFondo').play();
 }
 
+function PlayAudio() {
+    var audio = document.getElementById('musicaFondo');
+    audio.volume = 0.1; // Establece el volumen al 50%
+    audio.play();
+}
+
 function endGame(alias, score, time) {
     // Mostrar la pantalla de felicitación
     document.getElementById('gameCanvas').style.display = 'none';
