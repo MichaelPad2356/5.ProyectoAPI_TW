@@ -24,6 +24,7 @@ body, html {
 }
 a{
         text-decoration: none;
+        /* linea*/
 }
 button {
     background-color: #55b7d8;
