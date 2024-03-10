@@ -1,0 +1,79 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Silkscreen', sans-serif;
+    background-color: #1e1e1e; 
+}
+#congratulationsScreen {
+    background: url('../media/EndGame.png') no-repeat center center fixed;
+    background-size: cover; 
+    color: white;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10; 
+}
+
+#congratulationsScreen h1 {
+    font-size: 2.5rem; 
+    text-shadow: 0 0 10px #0004ff, 0 0 20px #ff00ff;
+    margin-bottom: 20px;
+}
+
+#congratulationsScreen h2 {
+    font-size: 2rem; 
+    color: #ffffff; 
+    text-shadow: 0 0 5px #292fd7, 0 0 10px #be1053; 
+    margin: 20px 0;
+}
+#motivationalText{
+    font-weight: bold;
+    text-shadow: 0 0 5px #292fd7, 0 0 10px #be1053; 
+    font-family: "Anta", sans-serif;
+
+}
+button {
+    background-color: #55b7d8;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ffffff, 0 0 20px #090388; 
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.5s, transform 0.2s; 
+}
+
+button:hover {
+    background-color: #d25aa0;
+    transform: scale(1.05); 
+}
+#restartGame {
+    font-family: 'Silkscreen', sans-serif;
+
+}
+
+@media (max-width: 768px) {
+    #congratulationsScreen h1 {
+        font-size: 2rem;
+    }
+
+    #congratulationsScreen h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+    }
+}
