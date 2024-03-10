@@ -147,3 +147,65 @@ span#playerAlias {
     border: none;
     cursor: pointer;
   }
+
+
+  div {
+    color: #ffffff; 
+    background-color: #1e1e1e4a; 
+    text-align: center; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    font-family: 'Silkscreen', sans-serif; 
+}
+
+span#playerAlias {
+    color: #4A90E2;
+    font-weight: bold; 
+    text-shadow: 0 0 5px #000, 0 0 10px #0000ff;
+}
+
+
+#playerAlias {
+    color: #4A90E2; 
+    font-weight: bold;
+}
+
+#finalScore, #bestTime {
+    color: #0084ff;
+    font-size: 25px; 
+    font-weight: bold;
+    background-color: #0000006a;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 5px #fff, 0 0 15px rgb(255, 255, 255);
+}
+
+#Motivacion {
+    color: #ffffff;
+    font-size: 16px; /* Ajustado para hacer el texto más pequeño */
+    font-family: "Anta", sans-serif;
+    margin-top: 30px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+
+#verPuntuaciones {
+    background-color: #1f2b62; 
+    color: white;
+    margin-top: 20px;
+    font-size: 17px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 5px #fafafa7f;
+    transition: all 0.3s;
+}
+
+#verPuntuaciones:hover {
+    background-color: #4549a0; 
+    box-shadow: 0 2px #666;
+}
+
+a{
+    text-decoration: none;
+}
+

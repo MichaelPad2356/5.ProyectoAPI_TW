@@ -38,24 +38,90 @@ function mostrarEstadisticas(jugador) {
   `;
 }
 
+// // Evento click en el botón "Ingresar"
+// document.getElementById('ingresar').addEventListener('click', () => {
+//   const alias = document.getElementById('alias').value.trim();
+//   if (alias) {
+//       const jugador = buscarJugador(alias);
+//       if (jugador) {
+//           mostrarEstadisticas(jugador);
+//           setTimeout(() => {
+//               window.location.href = 'PantallaJuego.html';
+//           }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
+//       } else {
+//           agregarJugador(alias);
+//           alert(`El jugador ${alias} ha sido agregado.`);
+//           setTimeout(() => {
+//               window.location.href = 'PantallaJuego.html';
+//           }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
+//       }
+//   } else {
+//       alert('Por favor, ingrese un alias.');
+//   }
+// });
+
 // Evento click en el botón "Ingresar"
 document.getElementById('ingresar').addEventListener('click', () => {
-  const alias = document.getElementById('alias').value.trim();
-  if (alias) {
+    const alias = document.getElementById('alias').value.trim();
+  
+    if (alias) {
       const jugador = buscarJugador(alias);
+  
       if (jugador) {
-          mostrarEstadisticas(jugador);
-          setTimeout(() => {
-              window.location.href = 'PantallaJuego.html';
-          }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
+        mostrarEstadisticas(jugador);
+        setTimeout(() => {
+          window.location.href = 'PantallaJuego.html';
+        }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
       } else {
-          agregarJugador(alias);
-          alert(`El jugador ${alias} ha sido agregado.`);
-          setTimeout(() => {
-              window.location.href = 'PantallaJuego.html';
-          }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
+        agregarJugador(alias);
+        mostrarMensajeAnimado(`El jugador ${alias} ha sido agregado.`);
+        setTimeout(() => {
+          window.location.href = 'PantallaJuego.html';
+        }, 3000); // Redirige a PantallaJuego.html después de 3 segundos (3000 milisegundos)
       }
-  } else {
-      alert('Por favor, ingrese un alias.');
+    } else {
+      mostrarMensajeAnimado('Por favor, ingrese un alias.');
+    }
+  });
+  
+  // Función para mostrar un mensaje animado
+  function mostrarMensajeAnimado(mensaje) {
+    const mensajeDiv = document.createElement('div');
+    mensajeDiv.style.position = 'fixed';
+    mensajeDiv.style.top = '50%';
+    mensajeDiv.style.left = '50%';
+    mensajeDiv.style.transform = 'translate(-50%, -50%)';
+    mensajeDiv.style.backgroundColor = '#FF0000';
+    mensajeDiv.style.color = '#fff';
+    mensajeDiv.style.padding = '20px';
+    mensajeDiv.style.borderRadius = '5px';
+    mensajeDiv.style.fontFamily = 'monospace';
+    mensajeDiv.style.fontSize = '16px';
+    mensajeDiv.style.textAlign = 'center';
+    mensajeDiv.style.opacity = '0';
+    mensajeDiv.textContent = mensaje;
+    document.body.appendChild(mensajeDiv);
+  
+    // Animación de aparición
+    let opacidad = 0;
+    const animacionAparicion = setInterval(() => {
+      opacidad += 0.1;
+      mensajeDiv.style.opacity = opacidad;
+      if (opacidad >= 1) {
+        clearInterval(animacionAparicion);
+      }
+    }, 50);
+  
+    // Animación de desaparición después de 2 segundos
+    setTimeout(() => {
+      let opacidad = 1;
+      const animacionDesaparicion = setInterval(() => {
+        opacidad -= 0.1;
+        mensajeDiv.style.opacity = opacidad;
+        if (opacidad <= 0) {
+          clearInterval(animacionDesaparicion);
+          mensajeDiv.remove();
+        }
+      }, 50);
+    }, 2000);
   }
-});
