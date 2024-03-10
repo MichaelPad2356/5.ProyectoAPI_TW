@@ -233,7 +233,7 @@ function reproducirSonidoYVozPorOrden(sonido, voz) {
         } else if (color === "rojo") {
             mensajeDiv.classList.add('mensaje-rojo');
         }
-    
+    //xD
         document.body.appendChild(mensajeDiv);
     
         setTimeout(function() {
