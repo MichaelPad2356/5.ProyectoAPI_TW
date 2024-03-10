@@ -15,8 +15,11 @@
 </head>
 <body>
     <div id="overlay">
-        <button id="b1" onclick="PlayAudio()"><i class="fas fa-music"></i></button>
-        <button id="b1" onclick="PauseAudio()"><i class="fa-solid fa-volume-xmark"></i></button>
+        <div class="button-container">
+            <button id="b1" onclick="PlayAudio()"><i class="fa-solid fa-volume-high"></i></button>
+             <button id="b2" onclick="PauseAudio()"><i class="fa-solid fa-volume-xmark"></i></button> 
+        </div>
+       
 
         <h1 id="title"><img id="logo" src="../media/logo-Photoroom.png-Photoroom.png" alt="Logo del juego">PixelQuest<img id="logo" src="../media/logo-Photoroom.png-Photoroom.png" alt="Logo del juego"></h1>
         <p id="subtitle">¡Ayuda a los personajes de videojuegos a encontrar sus casas y descubre los sonidos de cada uno!</p>
@@ -26,16 +29,9 @@
     </div>     
     </div>
 
-    <!-- <audio id="musicaFondo" autoplay loop>
-        <source src="../media/MusicaFondo.wav" type="audio/mpeg">
-        
-    </audio> -->
 
-    
     <audio id="musicaFondo" src="../media/MusicaFondo.wav"></audio>
-    <button onclick="PlayAudio()">
-        <i id="iconoMusica" class="fas fa-music"></i>
-    </button>
+   
 
 
 
