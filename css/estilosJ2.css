@@ -28,6 +28,7 @@ body {
   
   .lienzo {
     margin-right: 20px;
+    margin-top: 20px;
     position: relative;
     width: 400px;
     height: 400px;
