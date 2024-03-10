@@ -142,59 +142,66 @@ function eventoSobre(e) {
 }
 
 function eventoDrop(e) {
-e.preventDefault();
-var id = e.dataTransfer.getData('Text');
-var divPersonaje = document.getElementById(id);
-var lienzo = e.target;
+    e.preventDefault();
+    var id = e.dataTransfer.getData('Text');
+    var divPersonaje = document.getElementById(id);
+    var lienzo = e.target;
 
-if (lienzo.classList.contains('lienzo')) {
-var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
-var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
+    if (lienzo.classList.contains('lienzo')) {
+        var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
+        var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
 
-// Verificar si el lienzo ya tiene una imagen
-if (lienzo.querySelector('.imagen-personaje')) {
-    mostrarMensaje("Ya no puedes colocar aquí", "rojo");
-    return;
-}
+        // Verificar si el lienzo ya tiene una imagen
+        if (lienzo.querySelector('.imagen-personaje')) {
+            mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+            return;
+        }
 
-// Verificar si la imagen del personaje coincide con la casa correspondiente
-if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
-    var imgPersonaje = divPersonaje.querySelector('img');
+        // Verificar si la imagen del personaje coincide con la casa correspondiente
+        if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
+            var imgPersonaje = divPersonaje.querySelector('img');
 
-    // Crear un nuevo elemento img con la misma fuente
-    var imgNueva = document.createElement('img');
-    imgNueva.src = imgPersonaje.src;
-    imgNueva.classList.add('imagen-personaje');
+            var imgNueva = document.createElement('img');
+            imgNueva.src = imgPersonaje.src;
+            imgNueva.classList.add('imagen-personaje');
 
-    // Posicionar y ajustar el tamaño de la imagen
-    imgNueva.style.position = 'absolute';
-    imgNueva.style.top = '50%';
-    imgNueva.style.left = '50%';
-    imgNueva.style.transform = 'translate(-50%, -50%)';
-    imgNueva.style.maxWidth = '40%';
-    imgNueva.style.maxHeight = '40%';
+            imgNueva.style.position = 'absolute';
+            imgNueva.style.top = '50%';
+            imgNueva.style.left = '50%';
+            imgNueva.style.transform = 'translate(-50%, -50%)';
+            imgNueva.style.maxWidth = '40%';
+            imgNueva.style.maxHeight = '40%';
 
-    lienzo.appendChild(imgNueva);
+            lienzo.appendChild(imgNueva);
 
-    // Agregar un elemento para mostrar el nombre debajo de la imagen en el lienzo
-    const nombrePersonajeEnLienzo = document.createElement('div');
-    nombrePersonajeEnLienzo.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
-    nombrePersonajeEnLienzo.style.textAlign = 'center';
-    nombrePersonajeEnLienzo.style.fontSize = '12px';
-    nombrePersonajeEnLienzo.style.color = '#fff';
-    lienzo.appendChild(nombrePersonajeEnLienzo);
+            // Agregar un elemento para mostrar el nombre debajo de la imagen en el lienzo
+            const nombrePersonajeEnLienzo = document.createElement('div');
+            nombrePersonajeEnLienzo.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
+            nombrePersonajeEnLienzo.style.textAlign = 'center';
+            nombrePersonajeEnLienzo.style.fontSize = '12px';
+            nombrePersonajeEnLienzo.style.color = '#fff';
+            lienzo.appendChild(nombrePersonajeEnLienzo);
 
-    // Ocultar el div que contiene la imagen arrastrada
-    divPersonaje.style.visibility = 'hidden';
+            // Ocultar el div que contiene la imagen arrastrada
+            divPersonaje.style.visibility = 'hidden';
 
-    // Reproducir sonido del personaje y luego la voz
-    reproducirSonidoYVozPorOrden(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
+            // Reproducir sonido del personaje y luego la voz
+            console.log(mapeoCasasPersonajes[imagenCasaActual].sonido);
+            console.log(mapeoCasasPersonajes[imagenCasaActual].voz);
+            reproducirSonidoYVozPorOrden(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
 
-    mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
-} else {
-    mostrarMensaje("Inténtalo de nuevo", "rojo");
-}
-}
+            mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
+
+            // Verificar si todas las imágenes están colocadas correctamente
+            var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
+            if (imagenesEnLienzos.length === 3) {
+                // Todas las imágenes están colocadas correctamente, realizar la redirección
+                window.location.href = "FinalScore.html";
+            }
+        } else {
+            mostrarMensaje("Inténtalo de nuevo", "rojo");
+        }
+    }
 }
 
 
@@ -224,15 +231,21 @@ function reproducirSonidoYVozPorOrden(sonido, voz) {
     }
 
     function mostrarMensaje(mensaje, color) {
-        const mensajeJuego = document.getElementById("mensajeJuego");
-        mensajeJuego.textContent = mensaje;
-        mensajeJuego.style.color = color;
-        mensajeJuego.style.opacity = 1;
-
-        clearTimeout(mensajeTimeout);
-        mensajeTimeout = setTimeout(function() {
-            mensajeJuego.style.opacity = 0;
-        }, 2000);
+        var mensajeDiv = document.createElement('div');
+        mensajeDiv.textContent = mensaje;
+        mensajeDiv.classList.add('mensaje');
+    
+        if (color === "verde") {
+            mensajeDiv.classList.add('mensaje-verde');
+        } else if (color === "rojo") {
+            mensajeDiv.classList.add('mensaje-rojo');
+        }
+    
+        document.body.appendChild(mensajeDiv);
+    
+        setTimeout(function() {
+            mensajeDiv.remove();
+        }, 2000); // Eliminar el mensaje después de 5 segundos (5000 milisegundos)
     }
 
 window.addEventListener('load', iniciar, false);
