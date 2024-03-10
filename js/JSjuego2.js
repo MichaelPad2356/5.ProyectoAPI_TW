@@ -58,9 +58,32 @@ const mapeoCasasPersonajes = {
 
 let imagenesSeleccionadas = [];
 let mensajeTimeout;
+let puntaje = 0;
+let puntajeInicial = 0;
 
 function iniciar() {
     var imagenes = document.querySelectorAll('#cajasimagenes > div');
+
+
+    // Recuperar el puntaje y el tiempo almacenados en localStorage
+    const puntajeAlmacenado = localStorage.getItem('puntaje');
+    const tiempoAlmacenado = localStorage.getItem('bestTime');
+
+    // Haz lo que necesites con el puntaje y el tiempo
+    console.log('Puntaje almacenado:', puntajeAlmacenado);
+    console.log('Tiempo almacenado:', tiempoAlmacenado);
+
+
+    // Obtener el tiempo inicial del localStorage o un valor predeterminado si no está almacenado
+    const tiempoInicial = tiempoAlmacenado ? parseInt(tiempoAlmacenado) : 0;
+
+    // Obtener el puntaje inicial del localStorage o un valor predeterminado si no está almacenado
+    const puntajeInicial = puntajeAlmacenado ? parseInt(puntajeAlmacenado) : 0;
+
+    // Actualizar el puntaje global con el valor almacenado
+    puntaje = puntajeInicial;
+    actualizarPuntaje();
+
     for (var i = 0; i < imagenes.length; i++) {
         imagenes[i].addEventListener('dragstart', arrastrar, false);
         imagenes[i].addEventListener('dragend', finalizado, false);
@@ -141,6 +164,21 @@ function eventoSobre(e) {
     e.preventDefault();
 }
 
+
+
+function reproducirSonidoYVozPorOrden(sonido, voz) {
+    var audioSonido = new Audio(sonido);
+    var audioVoz = new Audio(voz);
+
+    // Reproducir sonido primero
+    audioSonido.play();
+
+    // Cuando el sonido haya terminado, reproducir la voz
+    audioSonido.addEventListener('ended', function () {
+        audioVoz.play();
+    });
+}
+
 function eventoDrop(e) {
     e.preventDefault();
     var id = e.dataTransfer.getData('Text');
@@ -154,6 +192,17 @@ function eventoDrop(e) {
         // Verificar si el lienzo ya tiene una imagen
         if (lienzo.querySelector('.imagen-personaje')) {
             mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+            // Reproducir sonido de perder
+
+             // Restar puntaje por intento fallido
+             puntaje = Math.max(puntajeInicial, puntaje - 50); // Asegurar que el puntaje no sea menor que el valor inicial
+            var audio = new Audio('../media/audios/sonido_personajes/perder.wav');
+            audio.play();
+
+           
+            
+            actualizarPuntaje();
+
             return;
         }
 
@@ -161,10 +210,12 @@ function eventoDrop(e) {
         if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
             var imgPersonaje = divPersonaje.querySelector('img');
 
+            // Crear un nuevo elemento img con la misma fuente
             var imgNueva = document.createElement('img');
             imgNueva.src = imgPersonaje.src;
             imgNueva.classList.add('imagen-personaje');
 
+            // Posicionar y ajustar el tamaño de la imagen
             imgNueva.style.position = 'absolute';
             imgNueva.style.top = '50%';
             imgNueva.style.left = '50%';
@@ -172,8 +223,11 @@ function eventoDrop(e) {
             imgNueva.style.maxWidth = '40%';
             imgNueva.style.maxHeight = '40%';
 
-          // Añadir la nueva imagen al lienzo
             lienzo.appendChild(imgNueva);
+
+            // Añadir la nueva imagen al lienzo
+            lienzo.appendChild(imgNueva);
+
             // Crear un contenedor para el nombre del personaje
             var nombrePersonaje = document.createElement('div');
             nombrePersonaje.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
@@ -194,8 +248,6 @@ function eventoDrop(e) {
             divPersonaje.style.visibility = 'hidden';
 
             // Reproducir sonido del personaje y luego la voz
-            console.log(mapeoCasasPersonajes[imagenCasaActual].sonido);
-            console.log(mapeoCasasPersonajes[imagenCasaActual].voz);
             reproducirSonidoYVozPorOrden(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
 
             mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
@@ -207,30 +259,41 @@ function eventoDrop(e) {
             // Verificar si todas las imágenes están colocadas correctamente
             var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
             if (imagenesEnLienzos.length === 3) {
-                // Todas las imágenes están colocadas correctamente, esperar 4 segundos y luego redirigir
+                // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
                 setTimeout(function () {
-                    window.location.href = "FinalScore.html";
-                }, 6000); // 4000 milisegundos = 4 segundos
+                    anime({
+                        targets: 'body',
+                        opacity: 0,
+                        duration: 1000, // Duración de la animación (en milisegundos)
+                        easing: 'easeInOutQuad', // Tipo de animación
+                        complete: function () {
+                            // Guardar el puntaje en localStorage antes de redirigir
+                            localStorage.setItem('bestTime', tiempoInicial);
+                            localStorage.setItem('puntaje', puntaje);
+                            window.location.href = "FinalScore.html";
+                        }
+                    });
+                }, 4000); // Cambié el tiempo a 4 segundos
             }
-                    } else {
+        } else {
             mostrarMensaje("Inténtalo de nuevo", "rojo");
+            // Reproducir sonido de perder
+            var audio = new Audio('../media/audios/sonido_personajes/perder.wav');
+            audio.play();
+            // Restar puntaje por error
+            puntaje = Math.max(puntajeInicial, puntaje - 65); // Asegurar que el puntaje no sea menor que el valor inicial
+            actualizarPuntaje();
         }
     }
 }
 
 
-function reproducirSonidoYVozPorOrden(sonido, voz) {
-    var audioSonido = new Audio(sonido);
-    var audioVoz = new Audio(voz);
-
-    // Reproducir sonido primero
-    audioSonido.play();
-
-    // Cuando el sonido haya terminado, reproducir la voz
-    audioSonido.addEventListener('ended', function () {
-        audioVoz.play();
-    });
+function actualizarPuntaje() {
+    document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
 }
+
+
+
     function seleccionarImagenesAleatorias(imagenes, cantidad) {
         const imagenesAleatorias = [];
         const copiaImagenes = [...imagenes];
@@ -243,6 +306,9 @@ function reproducirSonidoYVozPorOrden(sonido, voz) {
 
         return imagenesAleatorias;
     }
+
+
+    
 
     function mostrarMensaje(mensaje, color) {
         var mensajeDiv = document.createElement('div');

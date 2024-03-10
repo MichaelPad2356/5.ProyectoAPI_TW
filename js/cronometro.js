@@ -2,6 +2,15 @@
 let intervalo;
 let tiempoInicial = 0; // Tiempo inicial en segundos
 
+// Función para obtener el mejor tiempo almacenado en localStorage
+function obtenerMejorTiempo() {
+    let bestTime = localStorage.getItem('bestTime');
+    return bestTime ? parseInt(bestTime, 10) : 0;
+}
+
+function reiniciar() {
+    localStorage.setItem('bestTime', 0);
+}
 
 // Función para iniciar el cronómetro
 function iniciarCronometro() {
@@ -15,6 +24,9 @@ function iniciarCronometro() {
     contador.style.padding = '10px'; // Añade relleno alrededor del texto
     contador.style.borderRadius = '10px'; // Añade bordes redondeados
     contador.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)'; // Agrega sombra al texto para mejorar la legibilidad
+
+    // Obtener el tiempo inicial desde localStorage
+    tiempoInicial = obtenerMejorTiempo();
 
     // Función que actualiza el cronómetro cada segundo
     intervalo = setInterval(() => {
@@ -35,16 +47,8 @@ function iniciarCronometro() {
     }, 1000); // Actualizar cada segundo (1000 milisegundos)
 }
 
-// // Función para detener el cronómetro
-// function detenerCronometro() {
-//     clearInterval(intervalo);
-// }
 
-// // Función para reiniciar el cronómetro
-// function reiniciarCronometro() {
-//     detenerCronometro();
-//     document.getElementById('cronometro').textContent = '00:00:00';
-// }
+
 
 // Llamar a la función iniciarCronometro() cuando la página haya cargado completamente
 window.onload = function() {
