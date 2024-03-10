@@ -9,16 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onclick="PlayAudio()">
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <canvas id="gameCanvas" width="800" height="600" style="display:none;"></canvas>
     <div id="congratulationsScreen" style="display:none;">
         <h1>¡Excelente trabajo, <span id="playerAlias">Jugador</span>!</h1>
         <h2 id="finalScore">Puntuación Final: 0</h2> 
         <h2 id="bestTime">Mejor tiempo: --</h2> 
-        <audio id="audio" loop autoplay muted></audio>
-        <p id="motivationalText">¡Sigue así! Cada juego es una oportunidad para superarte.</p>
         <button id="restartGame">Jugar de Nuevo</button>
     </div>
-    <audio id="musicaFondo" autoplay>
+    <audio id="musicaFondo" autoplay loop>
         <source src="../media/MusicaFondo.wav" type="audio/mpeg">
     </audio>
     <script src="../js/Score.js"></script>
