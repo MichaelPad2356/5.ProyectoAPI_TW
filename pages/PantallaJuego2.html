@@ -14,8 +14,8 @@
 <body>
 
     <div id="cronometro">00:00:00</div>
-    <button onclick="detenerCronometro()">Detener</button>
-    <button onclick="reiniciarCronometro()">Reiniciar</button>
+    <!-- <button onclick="detenerCronometro()">Detener</button>
+    <button onclick="reiniciarCronometro()">Reiniciar</button> -->
 
        <!-- Lienzos para las casas -->
        <div id="lienzoContainer">
@@ -31,6 +31,17 @@
 
         <!-- Mensaje del juego -->
         <div id="mensajeJuego"></div>
+
+        <br><br>
+        <button onclick="irAPantallaPrincipal()">Regresar a la pantalla principal</button>
+
+        <script>
+            // Función para redirigir a la pantalla principal
+            function irAPantallaPrincipal() {
+                window.location.href = "../pages/pantalla1.html"; // Reemplaza con la ruta correcta
+            }
+        </script>
+
         
 </body>
 </html>

@@ -172,15 +172,20 @@ function eventoDrop(e) {
             imgNueva.style.maxWidth = '40%';
             imgNueva.style.maxHeight = '40%';
 
+          // Añadir la nueva imagen al lienzo
             lienzo.appendChild(imgNueva);
+            // Crear un contenedor para el nombre del personaje
+            var nombrePersonaje = document.createElement('div');
+            nombrePersonaje.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
+            nombrePersonaje.style.position = 'absolute';
+            nombrePersonaje.style.width = '100%';
+            nombrePersonaje.style.bottom = '5px';
+            nombrePersonaje.style.textAlign = 'center';
+            nombrePersonaje.style.color = 'white';
+            nombrePersonaje.style.fontSize = '16px';
 
-            // Agregar un elemento para mostrar el nombre debajo de la imagen en el lienzo
-            const nombrePersonajeEnLienzo = document.createElement('div');
-            nombrePersonajeEnLienzo.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
-            nombrePersonajeEnLienzo.style.textAlign = 'center';
-            nombrePersonajeEnLienzo.style.fontSize = '12px';
-            nombrePersonajeEnLienzo.style.color = '#fff';
-            lienzo.appendChild(nombrePersonajeEnLienzo);
+            // Añadir el nombre del personaje al lienzo
+            lienzo.appendChild(nombrePersonaje);
 
             // Ocultar el div que contiene la imagen arrastrada
             divPersonaje.style.visibility = 'hidden';
@@ -195,10 +200,12 @@ function eventoDrop(e) {
             // Verificar si todas las imágenes están colocadas correctamente
             var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
             if (imagenesEnLienzos.length === 3) {
-                // Todas las imágenes están colocadas correctamente, realizar la redirección
-                window.location.href = "FinalScore.html";
+                // Todas las imágenes están colocadas correctamente, esperar 4 segundos y luego redirigir
+                setTimeout(function () {
+                    window.location.href = "FinalScore.html";
+                }, 6000); // 4000 milisegundos = 4 segundos
             }
-        } else {
+                    } else {
             mostrarMensaje("Inténtalo de nuevo", "rojo");
         }
     }

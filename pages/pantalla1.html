@@ -8,12 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos1.css">
-    <script src="../js/JSp1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../js/principal.js"></script>
     <title>PixelQuest</title>
    
 </head>
 <body>
     <div id="overlay">
+        <button id="b1" onclick="PlayAudio()"><i class="fas fa-music"></i></button>
+        <button id="b1" onclick="PauseAudio()"><i class="fa-solid fa-volume-xmark"></i></button>
+
         <h1 id="title"><img id="logo" src="../media/logo-Photoroom.png-Photoroom.png" alt="Logo del juego">PixelQuest<img id="logo" src="../media/logo-Photoroom.png-Photoroom.png" alt="Logo del juego"></h1>
         <p id="subtitle">¡Ayuda a los personajes de videojuegos a encontrar sus casas y descubre los sonidos de cada uno!</p>
         <a href="pantallaAlias.html" id="startButton">¡Comenzar el juego!</a>
@@ -21,5 +25,19 @@
         <a href="creditos.html" id="creditsButton">Créditos y Autores</a> 
     </div>     
     </div>
+
+    <!-- <audio id="musicaFondo" autoplay loop>
+        <source src="../media/MusicaFondo.wav" type="audio/mpeg">
+        
+    </audio> -->
+
+    
+    <audio id="musicaFondo" src="../media/MusicaFondo.wav"></audio>
+    <button onclick="PlayAudio()">
+        <i id="iconoMusica" class="fas fa-music"></i>
+    </button>
+
+
+
 </body>
 </html>
