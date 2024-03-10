@@ -60,6 +60,7 @@ let mensajeTimeout;
 let puntaje = 0;
 
 function iniciar() {
+    
     // Eliminar los elementos guardados en localStorage
     localStorage.removeItem('elementosPantalla1');
     // localStorage.removeItem('puntaje');
@@ -158,6 +159,7 @@ if (lienzo.classList.contains('lienzo')) {
         // Restar puntaje por intento fallido
         puntaje = Math.max(0, puntaje - 50); // Cambia el valor según tu preferencia
         actualizarPuntaje();
+
 
         return;
     }
@@ -291,5 +293,11 @@ function mostrarMensaje(mensaje, color) {
 
 function actualizarPuntaje() {
     document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
+    localStorage.setItem('puntaje', puntaje);
+}
+
+function Guardarpuntaje(puntaje,){ //tiempo) {
+    localStorage.setItem("puntaje", puntaje);
+    //localStorage.setItem("tiempoJuego", tiempo);
 }
 window.addEventListener('load', iniciar, false);
