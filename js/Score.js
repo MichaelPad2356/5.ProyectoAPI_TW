@@ -13,12 +13,6 @@ function PlayAudio() {
     audio.play();
 }
 
-function PlayAudio() {
-    var audio = document.getElementById('musicaFondo');
-    audio.volume = 0.1; // Establece el volumen al 50%
-    audio.play();
-}
-
 function endGame(alias, score, time) {
     // Mostrar la pantalla de felicitación
     document.getElementById('gameCanvas').style.display = 'none';
@@ -29,7 +23,7 @@ function endGame(alias, score, time) {
 
     // Almacenar y actualizar el mejor tiempo en LocalStorage
     const bestTime = localStorage.getItem('bestTime') ? parseInt(localStorage.getItem('bestTime')) : Infinity;
-    if (time < bestTime) {
+    if (time > bestTime) {
         //localStorage.setItem('bestTime', time);
         // Asegúrate de que existe un elemento para el mejor tiempo en tu HTML
         document.getElementById('bestTime').textContent = `Mejor tiempo: ${time} segundos`;
