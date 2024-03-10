@@ -225,9 +225,7 @@ function eventoDrop(e) {
 
             lienzo.appendChild(imgNueva);
 
-            // Añadir la nueva imagen al lienzo
             lienzo.appendChild(imgNueva);
-
             // Crear un contenedor para el nombre del personaje
             var nombrePersonaje = document.createElement('div');
             nombrePersonaje.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
@@ -236,12 +234,13 @@ function eventoDrop(e) {
             nombrePersonaje.style.bottom = '5px';
             nombrePersonaje.style.textAlign = 'center';
             nombrePersonaje.style.color = 'white';
-            nombrePersonaje.style.fontSize = '16px';
-
+            nombrePersonaje.style.fontSize = '20px';
+            nombrePersonaje.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)'; // Agregar sombra al texto para mayor legibilidad
+            nombrePersonaje.style.fontWeight = 'bold'; // Hacer el texto en negrita para destacarlo mejor
+            nombrePersonaje.style.backgroundColor = 'black'; // Cambiar el color de fondo del contenedor del nombre
             // Añadir el nombre del personaje al lienzo
             lienzo.appendChild(nombrePersonaje);
-
-            // Ocultar el div que contiene la imagen arrastrada
+                // Ocultar el div que contiene la imagen arrastrada
             divPersonaje.style.visibility = 'hidden';
 
             // Reproducir sonido del personaje y luego la voz
@@ -286,9 +285,19 @@ function eventoDrop(e) {
 
 
 function actualizarPuntaje() {
-    document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
+    //document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
+    var puntajeElemento = document.getElementById('puntaje');
+    puntajeElemento.textContent = 'Puntaje: ' + puntaje;
+    puntajeElemento.style.position = 'absolute';
+    puntajeElemento.style.top = '20px'; // Ajusta la posición vertical del puntaje
+    puntajeElemento.style.left = '400px'; // Ajusta la posición horizontal del puntaje
+    puntajeElemento.style.fontSize = '18px'; // Ajusta el tamaño de la fuente del puntaje
+    puntajeElemento.style.color = 'white'; // Cambia el color del texto a blanco
+    puntajeElemento.style.background = '#0047ab'; // Cambia el fondo a un azul fuerte
+    puntajeElemento.style.padding = '10px'; // Añade relleno alrededor del texto
+    puntajeElemento.style.borderRadius = '10px'; // Añade bordes redondeados
+    puntajeElemento.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)'; // Agrega sombra al texto para mejorar la legibilidad
 }
-
 
 
     function seleccionarImagenesAleatorias(imagenes, cantidad) {
