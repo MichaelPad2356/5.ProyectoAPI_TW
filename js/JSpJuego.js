@@ -1,33 +1,75 @@
 const mapeoCasasPersonajes = {
-    '../media/Casas/Cuphead9.png': '../media/Personajes/Cuphead.png',
-    '../media/Casas/Donkey4.png': '../media/Personajes/DonkeyKong.png',
-    '../media/Casas/KirbyDL2.png': '../media/Personajes/Kirby.png',
-    '../media/Casas/MarioB1.png': '../media/Personajes/MarioBros.png',
-    '../media/Casas/Minecraft6.png': '../media/Personajes/Minecraft.png',
-    '../media/Casas/Packman7.png': '../media/Personajes/Pacman.png',
-    '../media/Casas/Pokemon8.png': '../media/Personajes/Pokemon.png',
-    '../media/Casas/Sonic3.png': '../media/Personajes/Sonic.png',
-    '../media/Casas/Zelda5.png': '../media/Personajes/Zelda.png'
+    '../media/Casas/Cuphead9.png': {
+        personaje: '../media/Personajes/Cuphead.png',
+        sonido: '../media/audios/sonido_personajes/Cuphead.wav',
+        voz: '../media/audios/voz_personajes/cuphead.wav',
+        nombre: 'Cuphead'
+    },
+    '../media/Casas/Donkey4.png': {
+        personaje: '../media/Personajes/DonkeyKong.png',
+        sonido: '../media/audios/sonido_personajes/Donkeykong.wav',
+        voz: '../media/audios/voz_personajes/donkeykong.wav',
+        nombre: 'Donkey Kong'
+    },
+    '../media/Casas/KirbyDL2.png': {
+        personaje: '../media/Personajes/Kirby.png',
+        sonido: '../media/audios/sonido_personajes/Kirby.wav',
+        voz: '../media/audios/voz_personajes/kirby.wav',
+        nombre: 'Kirby'
+    },
+    '../media/Casas/MarioB1.png': {
+        personaje: '../media/Personajes/MarioBros.png',
+        sonido: '../media/audios/sonido_personajes/Mario.wav',
+        voz: '../media/audios/voz_personajes/mariobros.wav',
+        nombre: 'Mario Bros'
+    },
+    '../media/Casas/Minecraft6.png': {
+        personaje: '../media/Personajes/Minecraft.png',
+        sonido: '../media/audios/sonido_personajes/Minecraft.wav',
+        voz: '../media/audios/voz_personajes/minecraft.wav',
+        nombre: 'Minecraft'
+    },
+    '../media/Casas/Packman7.png': {
+        personaje: '../media/Personajes/Pacman.png',
+        sonido: '../media/audios/sonido_personajes/Pacman.wav',
+        voz: '../media/audios/voz_personajes/pacman.wav',
+        nombre: 'Pacman'
+    },
+    '../media/Casas/Pokemon8.png': {
+        personaje: '../media/Personajes/Pokemon.png',
+        sonido: '../media/audios/sonido_personajes/Pokemon.wav',
+        voz: '../media/audios/voz_personajes/pokemon.wav',
+        nombre: 'Pokemon'
+    },
+    '../media/Casas/Sonic3.png': {
+        personaje: '../media/Personajes/Sonic.png',
+        sonido: '../media/audios/sonido_personajes/Sonic.wav',
+        voz: '../media/audios/voz_personajes/sonic.wav',
+        nombre: 'Sonic'
+    },
+    '../media/Casas/Zelda5.png': {
+        personaje: '../media/Personajes/Zelda.png',
+        sonido: '../media/audios/sonido_personajes/Zelda.wav',
+        voz: '../media/audios/voz_personajes/zelda.wav',
+        nombre: 'Zelda'
+    }
 };
 
 let imagenesSeleccionadas = [];
 let mensajeTimeout;
+let puntaje = 0;
 
 function iniciar() {
-    // puntaje = localStorage.getItem('puntaje') ? parseInt(localStorage.getItem('puntaje')) : 0;
-    // actualizarPuntaje();
+    // Eliminar los elementos guardados en localStorage
+    localStorage.removeItem('elementosPantalla1');
+    // localStorage.removeItem('puntaje');
+
     // puntaje = 0;
+    // actualizarPuntaje();
 
-        // Eliminar los elementos guardados en localStorage
-        localStorage.removeItem('elementosPantalla1');
-        // localStorage.removeItem('puntaje');
-
-        // puntaje = 0;
-        // actualizarPuntaje();
-
-        // Seleccionar nuevas imágenes de casas aleatorias
-        imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
-        localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
+    // Seleccionar nuevas imágenes de casas aleatorias
+    imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
+    localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
 
     const imagenes = document.querySelectorAll('#cajasimagenes > div');
     for (var i = 0; i < imagenes.length; i++) {
@@ -52,10 +94,10 @@ function iniciar() {
         lienzo.style.backgroundImage = 'url(' + imagenCasa + ')';
         lienzo.style.backgroundSize = '100% 100%';
         lienzo.style.backgroundRepeat = 'no-repeat';
-        lienzo.style.backgroundPosition = 'center'; 
+        lienzo.style.backgroundPosition = 'center';
     }
 
-    const imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa] === personaje)));
+    const imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa].personaje === personaje.personaje)));
 
     document.getElementById('cajasimagenes').innerHTML = '';
 
@@ -65,14 +107,14 @@ function iniciar() {
         divPersonaje.style.height = '190px';
         divPersonaje.style.marginRight = '60px';
         divPersonaje.style.marginTop = '60px';
-        divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i] + ')';
+        divPersonaje.style.backgroundImage = 'url(' + imagenesPersonajesFiltradas[i].personaje + ')';
         divPersonaje.id = 'div' + i;
         divPersonaje.draggable = true;
         divPersonaje.addEventListener('dragstart', arrastrar, false);
         divPersonaje.addEventListener('dragend', finalizado, false);
 
         const imgPersonaje = document.createElement('img');
-        imgPersonaje.src = imagenesPersonajesFiltradas[i];
+        imgPersonaje.src = imagenesPersonajesFiltradas[i].personaje;
         imgPersonaje.draggable = false;
         divPersonaje.appendChild(imgPersonaje);
 
@@ -100,68 +142,121 @@ function eventoSobre(e) {
 }
 
 function eventoDrop(e) {
-    e.preventDefault();
-    var id = e.dataTransfer.getData('Text');
-    var divPersonaje = document.getElementById(id);
-    var lienzo = e.target;
+e.preventDefault();
+var id = e.dataTransfer.getData('Text');
+var divPersonaje = document.getElementById(id);
+var lienzo = e.target;
 
-    if (lienzo.classList.contains('lienzo')) {
-        var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
-        var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
+if (lienzo.classList.contains('lienzo')) {
+    var imagenCasaActual = lienzo.style.backgroundImage.replace('url("', '').replace('")', '');
+    var imagenPersonajeActual = divPersonaje.style.backgroundImage.replace('url("', '').replace('")', '');
 
-        // Verificar si el lienzo ya tiene una imagen
-        if (lienzo.querySelector('.imagen-personaje')) {
-            mostrarMensaje("Ya no puedes colocar aquí","rojo");
-            return;
+    // Verificar si el lienzo ya tiene una imagen
+    if (lienzo.querySelector('.imagen-personaje')) {
+        mostrarMensaje("Ya no puedes colocar aquí", "rojo");
+
+        // Restar puntaje por intento fallido
+        puntaje = Math.max(0, puntaje - 50); // Cambia el valor según tu preferencia
+        actualizarPuntaje();
+
+        return;
+    }
+
+    // Verificar si la imagen del personaje coincide con la casa correspondiente
+    if (mapeoCasasPersonajes[imagenCasaActual].personaje === imagenPersonajeActual) {
+        var imgPersonaje = divPersonaje.querySelector('img');
+
+        // Crear un nuevo elemento img con la misma fuente
+        var imgNueva = document.createElement('img');
+        imgNueva.src = imgPersonaje.src;
+        imgNueva.classList.add('imagen-personaje');
+
+        // Posicionar y ajustar el tamaño de la imagen
+        imgNueva.style.position = 'absolute';
+        imgNueva.style.top = '50%';
+        imgNueva.style.left = '50%';
+        imgNueva.style.transform = 'translate(-50%, -50%)';
+        imgNueva.style.maxWidth = '40%';
+        imgNueva.style.maxHeight = '40%';
+
+        lienzo.appendChild(imgNueva);
+
+        // Agregar un elemento para mostrar el nombre debajo de la imagen en el lienzo
+        const nombrePersonajeEnLienzo = document.createElement('div');
+        nombrePersonajeEnLienzo.textContent = mapeoCasasPersonajes[imagenCasaActual].nombre;
+        nombrePersonajeEnLienzo.style.textAlign = 'center';
+        nombrePersonajeEnLienzo.style.fontSize = '12px';
+        nombrePersonajeEnLienzo.style.color = '#fff';
+        lienzo.appendChild(nombrePersonajeEnLienzo);
+
+        // Ocultar el div que contiene la imagen arrastrada
+        divPersonaje.style.visibility = 'hidden';
+
+        // Reproducir sonido del personaje y luego la voz
+        reproducirSonidoYVoz(mapeoCasasPersonajes[imagenCasaActual].sonido, mapeoCasasPersonajes[imagenCasaActual].voz);
+
+        mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
+
+        // Actualizar puntaje por imagen correcta
+        puntaje += 135;
+        actualizarPuntaje();
+
+        // Verificar si todas las imágenes están colocadas correctamente
+        var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
+        if (imagenesEnLienzos.length === 3) {
+            // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
+            setTimeout(function () {
+                anime({
+                    targets: 'body',
+                    opacity: 0,
+                    duration: 1000, // Duración de la animación (en milisegundos)
+                    easing: 'easeInOutQuad', // Tipo de animación
+                    complete: function () {
+                        // Guardar el puntaje en localStorage antes de redirigir
+                        localStorage.setItem('puntaje', puntaje);
+                        window.location.href = "PantallaJuego2.html";
+                    }
+                });
+            }, 6000);
         }
+    } else {
+        // Restar puntaje por error
+        puntaje = Math.max(0, puntaje - 65);
+        actualizarPuntaje();
 
-        // Verificar si la imagen del personaje coincide con la casa correspondiente
-        if (mapeoCasasPersonajes[imagenCasaActual] === imagenPersonajeActual) {
-            var imgPersonaje = divPersonaje.querySelector('img');
-
-            // Crear un nuevo elemento img con la misma fuente
-            var imgNueva = document.createElement('img');
-            imgNueva.src = imgPersonaje.src;
-            imgNueva.classList.add('imagen-personaje');
-
-            // Posicionar y ajustar el tamaño de la imagen
-            imgNueva.style.position = 'absolute';
-            imgNueva.style.top = '50%';
-            imgNueva.style.left = '50%';
-            imgNueva.style.transform = 'translate(-50%, -50%)';
-            imgNueva.style.maxWidth = '40%';
-            imgNueva.style.maxHeight = '40%';
-
-            lienzo.appendChild(imgNueva);
-
-            // Ocultar el div que contiene la imagen arrastrada
-            divPersonaje.style.visibility = 'hidden';
-
-            mostrarMensaje("¡Felicidades! ¡Acertaste!", "verde");
-
-            // Verificar si todas las imágenes están colocadas correctamente
-            // Verificar si todas las imágenes están colocadas correctamente
-            var imagenesEnLienzos = document.querySelectorAll('.lienzo .imagen-personaje');
-            if (imagenesEnLienzos.length === 3) {
-                // Todas las imágenes están colocadas correctamente, realizar la redirección con efecto de animación
-                setTimeout(function () {
-                    anime({
-                        targets: 'body',
-                        opacity: 0,
-                        duration: 1000, // Duración de la animación (en milisegundos)
-                        easing: 'easeInOutQuad', // Tipo de animación
-                        complete: function () {
-                            window.location.href = "PantallaJuego2.html";
-                        }
-                    });
-                }, 1000);
-            }
-                } else {
-                    mostrarMensaje("Inténtalo de nuevo", "rojo");
-                }
-            }
+        mostrarMensaje("Inténtalo de nuevo", "rojo");
+    }
+}
 }
 
+function reproducirSonidoYVoz(nombreSonido, nombreVoz) {
+    reproducirSonido(nombreSonido)
+        .then(() => reproducirVoz(nombreVoz))
+        .catch((error) => console.error(error));
+}
+
+function reproducirSonido(nombreSonido) {
+    return new Promise((resolve, reject) => {
+        const audio = new Audio(nombreSonido);
+        audio.addEventListener('ended', () => resolve());
+        audio.addEventListener('error', (error) => reject(error));
+        audio.play();
+    });
+}
+
+function reproducirVoz(nombreVoz) {
+    return new Promise((resolve, reject) => {
+        const voz = new Audio(nombreVoz);
+        voz.addEventListener('ended', () => resolve());
+        voz.addEventListener('error', (error) => reject(error));
+        voz.play();
+    });
+}
+
+function mostrarNombrePersonaje(nombre) {
+    const nombrePersonaje = document.getElementById("nombrePersonaje");
+    nombrePersonaje.textContent = 'Personaje: ' + nombre;
+}
 
 function seleccionarImagenesAleatorias(imagenes, cantidad) {
     const imagenesAleatorias = [];
@@ -176,23 +271,19 @@ function seleccionarImagenesAleatorias(imagenes, cantidad) {
     return imagenesAleatorias;
 }
 
-
 function mostrarMensaje(mensaje, color) {
-    var mensajeDiv = document.createElement('div');
-    mensajeDiv.textContent = mensaje;
-    mensajeDiv.classList.add('mensaje');
+    const mensajeJuego = document.getElementById("mensajeJuego");
+    mensajeJuego.textContent = mensaje;
+    mensajeJuego.style.color = color;
+    mensajeJuego.style.opacity = 1;
 
-    if (color === "verde") {
-        mensajeDiv.classList.add('mensaje-verde');
-    } else if (color === "rojo") {
-        mensajeDiv.classList.add('mensaje-rojo');
-    }
-
-    document.body.appendChild(mensajeDiv);
-
-    setTimeout(function() {
-        mensajeDiv.remove();
-    }, 2000); // Eliminar el mensaje después de 5 segundos (5000 milisegundos)
+    clearTimeout(mensajeTimeout);
+    mensajeTimeout = setTimeout(function () {
+        mensajeJuego.style.opacity = 0;
+    }, 2000);
 }
 
-        window.addEventListener('load', iniciar, false);
+function actualizarPuntaje() {
+    document.getElementById('puntaje').textContent = 'Puntaje: ' + puntaje;
+}
+window.addEventListener('load', iniciar, false);
