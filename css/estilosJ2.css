@@ -181,26 +181,41 @@ button:hover {
   border: none;
   background: none;
   cursor: pointer;
-  margin-left: 1250px;
+  margin-left: 1250px; /* Posición del botón */
+  transition: transform 0.3s ease-in-out; /* Transición para la animación */
 }
 
-.fa-volume-high {
-  font-size: 2em; /* Tamaño del icono */
-  color: #ececec; /* Color del icono */
+#b1:hover {
+  transform: scale(1.2); /* Escala el botón al 120% al pasar el cursor */
 }
 
-.fa-volume-xmark {
-  font-size: 2em; /* Tamaño del icono */
-  color: #ececec; /* Color del icono */
+/* Iconos */
+.fa-volume-high, .fa-volume-xmark {
+  font-size: 2em;
+  color: #ffffff; /* Color de los iconos */
+  animation: pulse 2s infinite; /* Animación de pulso */
 }
 
 /* Estilos para los botones */
 #b1 {
   display: inline-block;
-  margin-right: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+  margin-right: 10px; /* Espacio entre los botones */
   background: none;
   border: none;
   cursor: pointer;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 

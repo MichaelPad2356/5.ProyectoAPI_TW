@@ -92,6 +92,7 @@ body {
   
   /* Botones */
   #b1, #b2 {
+    margin: 10px;
     border: none;
     background: none;
     cursor: pointer;

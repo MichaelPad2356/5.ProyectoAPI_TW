@@ -209,3 +209,7 @@ a{
     text-decoration: none;
 }
 
+#tablaPuntuacionesContenedor {
+    max-height: 200px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agrega barras de scroll verticales cuando el contenido excede la altura */
+  }
