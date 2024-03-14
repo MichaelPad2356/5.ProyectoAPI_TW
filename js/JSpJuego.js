@@ -1,9 +1,10 @@
+// Objeto que mapea las imágenes de las casas con la información de los personajes asociados a cada una
 const mapeoCasasPersonajes = {
     '../media/Casas/Cuphead9.png': {
-        personaje: '../media/Personajes/Cuphead.png',
-        sonido: '../media/audios/sonido_personajes/Cuphead.wav',
-        voz: '../media/audios/voz_personajes/cuphead.wav',
-        nombre: 'Cuphead'
+        personaje: '../media/Personajes/Cuphead.png', // Ruta de la imagen del personaje
+        sonido: '../media/audios/sonido_personajes/Cuphead.wav', // Ruta del sonido asociado
+        voz: '../media/audios/voz_personajes/cuphead.wav',// Ruta de la voz asociada 
+        nombre: 'Cuphead'// Nombre del personaje
     },
     '../media/Casas/Donkey4.png': {
         personaje: '../media/Personajes/DonkeyKong.png',
@@ -69,8 +70,10 @@ function iniciar() {
 
     // Seleccionar nuevas imágenes de casas aleatorias
     imagenesSeleccionadas = seleccionarImagenesAleatorias(Object.keys(mapeoCasasPersonajes), 3);
+    // Convertir el conjunto de imágenes seleccionadas en formato JSON y almacenarlo en el almacenamiento local del navegador bajo la clave 'elementosPantalla1'
     localStorage.setItem('elementosPantalla1', JSON.stringify(imagenesSeleccionadas));
 
+    // Mostrar las imágenes de los personajes y asignandoles sus diferentes propiedades 
     const imagenes = document.querySelectorAll('#cajasimagenes > div');
     for (var i = 0; i < imagenes.length; i++) {
         imagenes[i].addEventListener('dragstart', arrastrar, false);
@@ -80,13 +83,16 @@ function iniciar() {
         imagenes[i].style.top = '-1000px';
     }
 
-    const lienzos = document.querySelectorAll('.lienzo');
+    // Mostrar las imágenes de las casas y asignandoles sus diferentes propiedades
+    const lienzos = document.querySelectorAll('.lienzo');//  selecciona todos los elementos HTML que tienen la clase CSS 'lienzo' y los almacena en la variable lienzos 
     for (var i = 0; i < lienzos.length; i++) {
         lienzos[i].addEventListener('dragenter', eventoEnter, false);
         lienzos[i].addEventListener('dragover', eventoSobre, false);
         lienzos[i].addEventListener('drop', eventoDrop, false);
     }
 
+
+    // Mostrar las imágenes de las casas en los lienzos
     for (var i = 0; i < lienzos.length; i++) {
         const lienzo = lienzos[i];
         const imagenCasa = imagenesSeleccionadas[i];
@@ -98,7 +104,16 @@ function iniciar() {
     }
 
     const imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => imagenesSeleccionadas.includes(Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa].personaje === personaje.personaje)));
+    // Filtra los objetos del objeto 'mapeoCasasPersonajes' basados en si sus rutas de imagen de personaje están incluidas en las imágenes seleccionadas
+    //const imagenesPersonajesFiltradas = Object.values(mapeoCasasPersonajes).filter(personaje => 
+    // Busca la casa asociada al personaje y verifica si su ruta de imagen está incluida en las imágenes seleccionadas
+    //imagenesSeleccionadas.includes(
+        // Encuentra la clave de la casa que corresponde al personaje actual y verifica si su ruta de imagen está incluida en las imágenes seleccionadas
+      //  Object.keys(mapeoCasasPersonajes).find(casa => mapeoCasasPersonajes[casa].personaje === personaje.personaje)
+  //  )
+//  );
 
+    // Limpia el contenido del elemento HTML con el ID 'cajasimagenes'
     document.getElementById('cajasimagenes').innerHTML = '';
 
     for (var i = 0; i < imagenesPersonajesFiltradas.length; i++) {
